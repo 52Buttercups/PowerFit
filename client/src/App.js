@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Welcome from './components/landing/Welcome';
+import Welcome from './components/welcome/Welcome';
 
 function App() {
   return (
