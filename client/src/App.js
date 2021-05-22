@@ -1,14 +1,14 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import LandingPage from './components/landing/LandingPage';
+import Welcome from './components/landing/Welcome';
 
 function App() {
   return (
     <Router>
       <div className="App">
         <Switch>
-          <Route path="/auth" component={LandingPage} />
+          <Route path="/welcome" component={Welcome} />
         </Switch>
       </div>
     </Router>
