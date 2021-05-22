@@ -1,6 +1,8 @@
 const express = require('express');
 const logger = require('morgan');
 const bodyparser = require('body-parser');
+const passport = require('passport')
+  , LocalStrategy = require('passport-local').Strategy;
 
 const PORT = process.env.PORT || 5000;
 const app = express();
