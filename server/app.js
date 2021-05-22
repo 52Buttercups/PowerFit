@@ -1,19 +1,19 @@
 const express = require('express');
-require('dotenv').config();
 const logger = require('morgan');
 const bodyparser = require('body-parser');
-const PORT = 5000;
+
+const { PORT } = process.env || 5000;
 const app = express();
 
 app.use(express.json());
 app.use(logger('dev'));
 app.use(bodyparser.json());
-app.use(bodyparser.urlencoded({extended: true}));
+app.use(bodyparser.urlencoded({ extended: true }));
 
 app.get('/', async (req, res) => {
   try {
-    res.status(200).json({message: 'Hello from Buttercups Server'});
-  } catch(err) {
+    res.status(200).json({ message: 'Hello from Buttercups Server' });
+  } catch (err) {
     console.error(err);
   }
 });
