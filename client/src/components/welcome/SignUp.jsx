@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import styles from './signUp.module.css';
+import styles from './signUp.module.scss';
 
-const SignUp = () => {
+const SignUp = ({ setShowSignup }) => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -25,7 +25,8 @@ const SignUp = () => {
       <button type="submit">Signup</button>
       <p className={styles.formSwitch}>
         Need to
-        <span className={styles.formLink}>Login</span>
+        {' '}
+        <span onClick={() => setShowSignup(false)} className={styles.formLink}>Login</span>
         ?
       </p>
     </form>
