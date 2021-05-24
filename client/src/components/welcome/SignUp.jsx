@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './signUp.module.css';
+import styles from './signUp.module.scss';
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -25,6 +25,7 @@ const SignUp = () => {
       <button type="submit">Signup</button>
       <p className={styles.formSwitch}>
         Need to
+        {' '}
         <span className={styles.formLink}>Login</span>
         ?
       </p>
