@@ -15,7 +15,7 @@ const workouts = {
 
 const exercises = {
   "exercisesId": Number,
-  "name": String.
+  "name": String,
   "instructions": String,
   "video": String,
   "muscleGroups": Array,
