@@ -1,7 +1,7 @@
 const express = require('express');
 const logger = require('morgan');
 const bodyparser = require('body-parser');
-const models = require('../db/index');
+const models = require('./database/index');
 
 const PORT = process.env.PORT || 5000;
 const app = express();
