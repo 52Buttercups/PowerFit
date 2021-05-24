@@ -86,7 +86,6 @@ const Dashboard = () => {
 
           {workouts.map((workout) => (
             <div key={workout.id} className={styles.workout}>
-              {console.log(workout.name)}
               <Typography color="primary" className={styles.typography}>
                 {workout.name}
               </Typography>
