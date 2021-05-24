@@ -1,31 +1,33 @@
-//users (list of users)
-//username
-//password
-//favorites (link to workouts docs)
+/* 
++ users (list of users)
+  - username
+  - password
+  - favorites (link to workouts docs)
 
-//workout (at least one)
-//name
-//list of exercises (link to docs)
++ workout (at least one)
+  - name
+  - list of exercises (link to docs)
 
-//list of exercises
-//id
-//name
-//instructions
-//video
-//estimated time required
-//weight (initially 0)
-//set (initially 0)
-//reps (initially 0)
-//muscle group (link to doc)
-//eqiupment (link to doc)
++ list of exercises
+  - id
+  - name
+  - instructions
+  - video
+  - estimated time required
+  - weight (initially 0)
+  - set (initially 0)
+  - reps (initially 0)
+  - muscle group (link to doc)
+  - eqiupment (link to doc)
 
-//list of muscle groups
-//id
-//muslce group
++ list of muscle groups
+  - id
+  - muslce group
 
-//list of equipment
-//id
-//name
++ list of equipment
+  - id
+  - name
+*/
 
 let dummyData = {
   users: {

@@ -1,29 +1,75 @@
 const express = require('express');
 const logger = require('morgan');
 const bodyparser = require('body-parser');
-const models = require('./db/index');
+const expressSession = require('express-session')({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: false,
+});
+const passport = require('passport');
+const connectEnsureLogin = require('connect-ensure-login');
+const models = require('./database/index');
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 const app = express();
 
 const Users = models.User;
 const Workouts = models.Workout;
 const Exercises = models.Exercise;
 const MuscleGroups = models.MuscleGroup;
-const Equipment = models.Equipment;
+const { Equipment } = models;
 
 app.use(express.json());
 app.use(logger('dev'));
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
+app.use(expressSession);
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.get('/', async (req, res) => {
+passport.use(Users.createStrategy());
+
+passport.serializeUser(Users.serializeUser());
+passport.deserializeUser(Users.deserializeUser());
+
+app.get('/', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
   try {
     res.status(200).json({ message: 'Hello from Buttercups Server' });
   } catch (err) {
     console.error(err);
   }
 });
+
+app.post('/login', (req, res, next) => {
+  passport.authenticate('local',
+    (err, user, info) => {
+      if (err) {
+        return next(err);
+      }
+
+      if (!user) {
+        console.log(info)
+        return res.redirect(`/login?info=${info}`);
+      }
+
+      req.logIn(user, (err) => {
+        if (err) {
+          return next(err);
+        }
+
+        return res.redirect('/');
+      });
+    })(req, res, next);
+});
+
+app.get('/login', (req, res) => {
+  res.send("Welcome to the login page!")
+})
+
+app.get('/user',
+  connectEnsureLogin.ensureLoggedIn(),
+  (req, res) => res.send({user: req.user})
+);
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 
