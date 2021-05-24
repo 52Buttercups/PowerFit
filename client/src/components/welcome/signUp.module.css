@@ -1,0 +1,39 @@
+.form {
+  margin-top: 150px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inputLabel {
+  color: #575757;
+  width: 85%;
+  text-align: left;
+  padding-bottom: 7px;
+}
+
+.input {
+  color: #575757;
+  width: 85%;
+  font-size: 1.2rem;
+  padding: 10px;
+  border: 0.7px solid #575757;
+  border-radius: 7px;
+}
+
+.formError {
+  color: red;
+  height: 20px;
+  width: 85%;
+  text-align: left;
+  padding: 5px 0;
+}
+
+.form button {
+
+}
+
+.formSwitch {
+
+}
