@@ -8,6 +8,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 
 // components
 import Welcome from './components/welcome/Welcome';
+import Dashboard from './components/dashboard/Dashboard';
 
 const theme = createMuiTheme({
   palette: {
@@ -15,6 +16,9 @@ const theme = createMuiTheme({
       default: '#323131',
     },
     primary: {
+      main: '#D0DFEB',
+    },
+    secondary: {
       main: '#FF681E',
     },
   },
@@ -28,6 +32,7 @@ function App() {
         <div className="App">
           <Switch>
             <Route path="/welcome" component={Welcome} />
+            <Route path="/dashboard" component={Dashboard} />
           </Switch>
         </div>
       </ThemeProvider>
