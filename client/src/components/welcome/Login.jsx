@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './login.module.scss';
 
-const Login = () => {
+const Login = ({ setShowSignup }) => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -26,7 +26,7 @@ const Login = () => {
       <p className={styles.formSwitch}>
         Need to
         {' '}
-        <span className={styles.formLink}>Signup</span>
+        <span onClick={() => setShowSignup(true)} className={styles.formLink}>Signup</span>
         ?
       </p>
     </form>
