@@ -9,6 +9,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 // components
 import Welcome from './components/welcome/Welcome';
 import Dashboard from './components/dashboard/Dashboard';
+import WorkoutBuilder from './components/workoutBuilder/WorkoutBuilder';
 
 const theme = createMuiTheme({
   palette: {
@@ -33,6 +34,7 @@ function App() {
           <Switch>
             <Route path="/welcome" component={Welcome} />
             <Route path="/dashboard" component={Dashboard} />
+            <Route path="/builder" component={WorkoutBuilder} />
           </Switch>
         </div>
       </ThemeProvider>
