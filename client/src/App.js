@@ -9,11 +9,8 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 // components
 import Welcome from './components/welcome/Welcome';
 import Dashboard from './components/dashboard/Dashboard';
-<<<<<<< HEAD
 import WorkoutViewer from './components/workoutView/WorkoutViewer';
-=======
 import WorkoutBuilder from './components/workoutBuilder/WorkoutBuilder';
->>>>>>> 8221e3592f74c1b4bddcd0d2d915547bb5ee6b42
 
 const theme = createMuiTheme({
   palette: {
