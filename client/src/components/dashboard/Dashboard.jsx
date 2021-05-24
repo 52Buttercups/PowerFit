@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 // material ui
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -84,7 +85,15 @@ const Dashboard = () => {
               <Typography color="primary" className={styles.typography}>
                 {workout.name}
               </Typography>
-              <Button color="secondary">View</Button>
+              <Link
+                to={{
+                  pathname: '/viewer',
+                  hash: `${workout.name}`,
+                  state: { workout },
+                }}
+              >
+                <Button color="secondary">View</Button>
+              </Link>
             </div>
           ))}
 
