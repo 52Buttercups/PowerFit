@@ -5,6 +5,7 @@ import App from './App';
 import { RootProvider } from './context/RootContext';
 
 ReactDOM.render(
+
   <RootProvider>
     <App />
   </RootProvider>,
