@@ -7,7 +7,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 
 // components
-import Welcome from './components/landing/Welcome';
+import Welcome from './components/welcome/Welcome';
 import Dashboard from './components/dashboard/Dashboard';
 
 const theme = createMuiTheme({

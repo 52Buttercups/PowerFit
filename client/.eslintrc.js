@@ -46,5 +46,6 @@ module.exports = {
     'import/no-extraneous-dependencies': 'off',
     'no-await-in-loop': 'off',
     radix: 'off',
+    'no-unused-vars': 'off',
   },
 };
