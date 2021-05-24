@@ -1,0 +1,59 @@
+@import '../../variables.scss';
+
+.form {
+  margin-top: 150px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inputLabel {
+  color: $black;
+  width: 85%;
+  text-align: left;
+  padding-bottom: 7px;
+  font-family: $open-sans;
+}
+
+.input {
+  color: $black;
+  width: 85%;
+  font-size: 1.2rem;
+  padding: 10px;
+  border: 0.7px solid $black;
+  border-radius: 7px;
+  font-family: $open-sans;
+}
+
+.formError {
+  color: red;
+  height: 20px;
+  width: 85%;
+  text-align: left;
+  padding: 5px 0;
+  font-family: $open-sans;
+}
+
+.form button {
+  width: 85%;
+  font-size: 1.2rem;
+  padding: 10px;
+  border: none;
+  border-radius: 7px;
+  font-family: $open-sans;
+  background-color: $primary-color;
+  color: $background-color;
+  margin: 30px 0 15px;
+}
+
+.formSwitch {
+  font-family: $open-sans;
+  color: $black;
+}
+
+.formLink {
+  color: #4242cb;
+  text-decoration: underline;
+  cursor: pointer;
+}
