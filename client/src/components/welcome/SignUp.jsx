@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from './signUp.module.css';
 
 const SignUp = () => {
-  const [formData, setFromData] = useState({
+  const [formData, setFormData] = useState({
     username: '',
     password: '',
   });
