@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
   media: {
     height: '75vh',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       display: 'none',
     },
   },
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const WorkoutViewer = () => {
+const WorkoutViewer = ({ location }) => {
   const classes = useStyles();
 
   return (
@@ -41,6 +41,13 @@ const WorkoutViewer = () => {
           <Typography color="primary" variant="h4">
             Workout Viewer
           </Typography>
+          <div>
+            {location.state.workout.exercises.map((exercise) => (
+              <Typography color="secondary" variant="h5">
+                {exercise.name}
+              </Typography>
+            ))}
+          </div>
         </Grid>
         <Grid item xs={12} sm={6}>
           <Card className={classes.root}>
@@ -51,12 +58,12 @@ const WorkoutViewer = () => {
                 image={stockImg}
                 title="Contemplative Reptile"
               />
-              <CardContent className={classes.content}>
-                <Button>Edit this workout</Button>
-                <Button>Mark as complete</Button>
-                <Button>Save to My Workouts</Button>
-              </CardContent>
             </CardActionArea>
+            <CardActions className={classes.content}>
+              <Button>Edit this workout</Button>
+              <Button>Mark as complete</Button>
+              <Button>Save to My Workouts</Button>
+            </CardActions>
           </Card>
         </Grid>
       </Grid>
