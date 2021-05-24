@@ -1,31 +1,33 @@
-//users (list of users)
-//username
-//password
-//favorites (link to workouts docs)
+/* 
++ users (list of users)
+  - username
+  - password
+  - favorites (link to workouts docs)
 
-//workout (at least one)
-//name
-//list of exercises (link to docs)
++ workout (at least one)
+  - name
+  - list of exercises (link to docs)
 
-//list of exercises
-//id
-//name
-//instructions
-//video
-//estimated time required
-//weight (initially 0)
-//set (initially 0)
-//reps (initially 0)
-//muscle group (link to doc)
-//eqiupment (link to doc)
++ list of exercises
+  - id
+  - name
+  - instructions
+  - video
+  - estimated time required
+  - weight (initially 0)
+  - set (initially 0)
+  - reps (initially 0)
+  - muscle group (link to doc)
+  - eqiupment (link to doc)
 
-//list of muscle groups
-//id
-//muslce group
++ list of muscle groups
+  - id
+  - muslce group
 
-//list of equipment
-//id
-//name
++ list of equipment
+  - id
+  - name
+*/
 
 let dummyData = {
   users: {
@@ -44,7 +46,7 @@ let dummyData = {
     1: {
       name: 'testWorkout1',
       exercises: [1, 2, 3]
-    }
+    },
     2: {
       name: 'testWorkout2',
       exercises: [2, 1, 3]
