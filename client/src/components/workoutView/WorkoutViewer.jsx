@@ -42,8 +42,8 @@ const WorkoutViewer = ({ location }) => {
             Workout Viewer
           </Typography>
           <div>
-            {location.state.workout.exercises.map((exercise) => (
-              <Typography color="secondary" variant="h5">
+            {location.state.workout.exercises.map((exercise, i) => (
+              <Typography key={i} color="secondary" variant="h5">
                 {exercise.name}
               </Typography>
             ))}
