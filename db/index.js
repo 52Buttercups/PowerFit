@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const schemas = require('./models/schemas');
-const mongoUri = 'mongodb://localhost/powerfit'
+const schemas = require('./models/schemas.js');
+const mongoUri = 'mongodb://localhost/powerfit';
 
 mongoose.connect(mongoUri, {
   useNewUrlParser: true,
