@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
+// material ui
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+
+// components
+import BuilderCard from './BuilderCard';
 
 const userWorkouts = {
   id: 1,
@@ -51,6 +55,15 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-around',
     margin: '10px',
   },
+  card: {
+    marginTop: '20%',
+  },
+  buiderContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+  },
 }));
 
 const Dashboard = () => {
@@ -83,10 +96,13 @@ const Dashboard = () => {
 
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6} className={styles.buiderContainer}>
           <Typography color="primary" variant="h4">
             Workout Builder
           </Typography>
+          <div className={styles.card}>
+            <BuilderCard />
+          </div>
         </Grid>
       </Grid>
     </div>
