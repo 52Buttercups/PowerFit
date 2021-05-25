@@ -20,14 +20,18 @@ router.get('/', (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
-    const workout = await Workouts.findOne({ _id: req.params.id });
+    const workout = await Workouts.findOne({ workoutId: req.params.id });
 
     const exercises = await Promise.all(workout.exercises.map(async (exerciseId) => {
-      const exercise = await Exercise.findOne({ _id: id });
+      const exercise = await Exercise.findOne({ exerciseId });
       return exercise;
     }));
     console.log('example', exercises);
-    res.status(200).json(exercises);
+
+    delete workout.exercises;
+
+    workout.exercises = exercises;
+    res.status(200).json(workout);
   } catch (err) {
     console.log('err', err);
   }

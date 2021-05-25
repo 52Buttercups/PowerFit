@@ -20,6 +20,7 @@ const MuscleGroups = models.MuscleGroup;
 const { Equipment } = models;
 
 const workouts = require('./routes/workout');
+const exercises = require('./routes/exercises');
 
 app.use(express.json());
 app.use(logger('dev'));
@@ -34,6 +35,7 @@ passport.deserializeUser(Users.deserializeUser());
 
 // other routes
 app.use('/workouts', workouts);
+app.use('/exercises', exercises);
 
 app.get('/', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
   try {
