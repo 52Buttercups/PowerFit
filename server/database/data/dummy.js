@@ -1,34 +1,3 @@
-/*
-+ users (list of users)
-  - username
-  - password
-  - favorites (link to workouts docs)
-
-+ workout (at least one)
-  - name
-  - list of exercises (link to docs)
-
-+ list of exercises
-  - id
-  - name
-  - instructions
-  - video
-  - estimated time required
-  - weight (initially 0)
-  - set (initially 0)
-  - reps (initially 0)
-  - muscle group (link to doc)
-  - eqiupment (link to doc)
-
-+ list of muscle groups
-  - id
-  - muslce group
-
-+ list of equipment
-  - id
-  - name
-*/
-
 const db = require('../index');
 
 const userData = [
@@ -195,7 +164,7 @@ const equipmentData = [
 ];
 
 const insertDummyData = () => {
-  db.User.create(userData)
+  db.UserInfo.create(userData)
     .then(() => db.Workout.create(workoutData))
     .then(() => db.Exercise.create(exerciseData))
     .then(() => db.MuscleGroup.create(muscleGroupsData))

@@ -15,7 +15,7 @@ mongoose.connect(mongoUri, {
 
 const dbConnect = mongoose.connection;
 
-// const User = mongoose.model('User', schemas.users);
+const UserInfo = mongoose.model('UserInfo', schemas.users);
 const Workout = mongoose.model('Workout', schemas.workouts);
 const Exercise = mongoose.model('Exercise', schemas.exercises);
 const MuscleGroup = mongoose.model('MuscleGroup', schemas.muscleGroups);
@@ -32,7 +32,7 @@ UserDetail.plugin(passportLocalMongoose);
 const User = mongoose.model('User', UserDetail);
 
 module.exports = {
-  User,
+  UserInfo,
   Workout,
   Exercise,
   MuscleGroup,

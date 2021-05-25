@@ -13,7 +13,7 @@ const models = require('./database/index');
 const PORT = process.env.PORT || 5000;
 const app = express();
 
-const Users = models.User;
+const UserInfo = models.UserInfo;
 const Workouts = models.Workout;
 const Exercises = models.Exercise;
 const MuscleGroups = models.MuscleGroup;
