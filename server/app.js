@@ -1,41 +1,81 @@
-const createError = require('http-errors');
 const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const bodyparser = require('body-parser');
+const expressSession = require('express-session')({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: false,
+});
+const passport = require('passport');
+const connectEnsureLogin = require('connect-ensure-login');
+const models = require('./database/index');
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-
+const PORT = process.env.PORT || 5000;
 const app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+const Users = models.User;
+const Workouts = models.Workout;
+const Exercises = models.Exercise;
+const MuscleGroups = models.MuscleGroup;
+const { Equipment } = models;
 
-app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(logger('dev'));
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({ extended: true }));
+app.use(expressSession);
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+passport.use(Users.createStrategy());
+passport.serializeUser(Users.serializeUser());
+passport.deserializeUser(Users.deserializeUser());
 
-// catch 404 and forward to error handler
-app.use((req, res, next) => {
-  next(createError(404));
+app.get('/', async (req, res) => {
+  try {
+    res.status(200).json({ message: 'Hello from Buttercups Server' });
+  } catch (err) {
+    console.error(err);
+  }
 });
 
-// error handler
-app.use((err, req, res) => {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.post('/login', (req, res, next) => {
+  passport.authenticate('local',
+    (err, user, info) => {
+      if (err) {
+        return next(err);
+      }
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+      if (!user) {
+        console.log(info);
+        return res.redirect(`/login?info=${info}`);
+      }
+
+      req.logIn(user, (error) => {
+        if (error) {
+          return next(error);
+        }
+
+        return res.redirect('/');
+      });
+    })(req, res, next);
 });
+
+app.get('/login', (req, res) => {
+  res.send('Welcome to the login page!');
+});
+
+app.post('/register', (req, res) => {
+  Users.register(new Users({ username: req.body.username }), req.body.password, (err, user) => {
+    if (err) {
+      return res.render('register', { user });
+    }
+    passport.authenticate('local')(req, res, () => {
+      res.redirect('/');
+    });
+  });
+});
+
+app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 
 module.exports = app;
