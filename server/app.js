@@ -31,6 +31,10 @@ passport.use(Users.createStrategy());
 passport.serializeUser(Users.serializeUser());
 passport.deserializeUser(Users.deserializeUser());
 
+app.get('/api/authenticated', connectEnsureLogin.ensureLoggedIn(), (req, res) => {
+  res.send('We are authenticated');
+});
+
 app.get('/', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
   try {
     res.status(200).json({ message: 'Hello from Buttercups Server' });
@@ -74,7 +78,7 @@ app.post('/register', (req, res) => {
       return res.status(400).json({ message: `${req.body.username} has failed to be created.`, error: `${err}` });
     }
     passport.authenticate('local')(req, res, () => {
-      res.status(201).json({ message: `${req.body.username} has been created.` });
+      res.status(201).json({ message: `${req.body.username} has been created.`, username: req.body.username });
     });
   });
 });
