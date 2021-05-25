@@ -31,7 +31,7 @@ passport.use(Users.createStrategy());
 passport.serializeUser(Users.serializeUser());
 passport.deserializeUser(Users.deserializeUser());
 
-app.get('/', async (req, res) => {
+app.get('/', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
   try {
     res.status(200).json({ message: 'Hello from Buttercups Server' });
   } catch (err) {
@@ -48,15 +48,15 @@ app.post('/login', (req, res, next) => {
 
       if (!user) {
         console.log(info);
-        return res.redirect(`/login?info=${info}`);
+        return res.status(400).json({message: 'Unable to login user!', loggedIn: false, error: `${info}`});
       }
 
-      req.logIn(user, (error) => {
-        if (error) {
-          return next(error);
+      req.logIn(user, (err) => {
+        if (err) {
+          return next(err);
         }
 
-        return res.redirect('/');
+        res.status(201).json({message: `${req.body.username} is now logged in.`, loggedIn: true, username: `${req.body.username}`})
       });
     })(req, res, next);
 });
@@ -68,10 +68,11 @@ app.get('/login', (req, res) => {
 app.post('/register', (req, res) => {
   Users.register(new Users({ username: req.body.username }), req.body.password, (err, user) => {
     if (err) {
-      return res.render('register', { user });
+      console.log(err);
+      return res.status(400).json({message: `${req.body.username} has failed to be created.`, error: `${err}`});
     }
     passport.authenticate('local')(req, res, () => {
-      res.redirect('/');
+      res.status(201).json({message: `${req.body.username} has been created.`})
     });
   });
 });
