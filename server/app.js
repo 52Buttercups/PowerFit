@@ -34,6 +34,10 @@ passport.serializeUser(User.serializeUser());
 // Deserializes - Retrieves the user info
 passport.deserializeUser(User.deserializeUser());
 
+app.get('/api/authenticated', connectEnsureLogin.ensureLoggedIn(), (req, res) => {
+  res.send('We are authenticated');
+});
+
 app.get('/', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
   try {
     console.log(req.session)
