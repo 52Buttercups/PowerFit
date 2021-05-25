@@ -54,7 +54,7 @@ app.post('/login', (req, res, next) => {
 
       req.logIn(user, (err) => {
         if (err) {
-          console.log9;
+          console.log();
         }
 
         res.status(201).json({ message: `${req.body.username} is now logged in.`, loggedIn: true, username: `${req.body.username}` });
