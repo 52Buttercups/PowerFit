@@ -13,6 +13,9 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import stockImg from '../../assets/core-workout.jpg';
 
+// components
+import WorkoutInfo from './WorkoutInfo';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -43,9 +46,7 @@ const WorkoutViewer = ({ location }) => {
           </Typography>
           <div>
             {location.state.workout.exercises.map((exercise, i) => (
-              <Typography key={i} color="secondary" variant="h5">
-                {exercise.name}
-              </Typography>
+              <WorkoutInfo key={i} exercise={exercise} />
             ))}
           </div>
         </Grid>
