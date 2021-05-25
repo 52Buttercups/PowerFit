@@ -11,6 +11,7 @@ import Welcome from './components/welcome/Welcome';
 import Dashboard from './components/dashboard/Dashboard';
 import WorkoutViewer from './components/workoutView/WorkoutViewer';
 import WorkoutBuilder from './components/workoutBuilder/WorkoutBuilder';
+import Header from './components/header/Header';
 
 const theme = createMuiTheme({
   palette: {
@@ -32,6 +33,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="App">
+          <Header />
           <Switch>
             <Route exact path="/" component={Welcome} />
             <Route path="/dashboard" component={Dashboard} />
