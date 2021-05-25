@@ -20,8 +20,10 @@ const MuscleGroup = mongoose.model('MuscleGroup', schemas.muscleGroups);
 const Equipment = mongoose.model('Equipment', schemas.equipment);
 
 const UserDetail = new Schema({
+  usersId: Number,
   username: String,
   password: String,
+  favorites: Array
 });
 
 UserDetail.plugin(passportLocalMongoose);

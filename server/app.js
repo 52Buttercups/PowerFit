@@ -28,7 +28,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.use(Users.createStrategy());
-
 passport.serializeUser(Users.serializeUser());
 passport.deserializeUser(Users.deserializeUser());
 
@@ -48,7 +47,7 @@ app.post('/login', (req, res, next) => {
       }
 
       if (!user) {
-        console.log(info)
+        console.log(info);
         return res.redirect(`/login?info=${info}`);
       }
 
@@ -63,13 +62,19 @@ app.post('/login', (req, res, next) => {
 });
 
 app.get('/login', (req, res) => {
-  res.send("Welcome to the login page!")
-})
+  res.send('Welcome to the login page!');
+});
 
-app.get('/user',
-  connectEnsureLogin.ensureLoggedIn(),
-  (req, res) => res.send({user: req.user})
-);
+app.post('/register', (req, res) => {
+  Users.register(new Users({ username: req.body.username }), req.body.password, (err, user) => {
+    if (err) {
+      return res.render('register', { user });
+    }
+    passport.authenticate('local')(req, res, () => {
+      res.redirect('/');
+    });
+  });
+});
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 
