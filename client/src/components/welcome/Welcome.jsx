@@ -12,7 +12,7 @@ const Welcome = () => {
           : <Login setShowSignup={setShowSignup} />}
       </div>
       <div className={styles.heroText}>
-        <h2>Sign Up or Log In to start working out</h2>
+        <h2>Signup or Login to Start Working Out</h2>
         <p>Some text here</p>
       </div>
     </div>

@@ -11,14 +11,14 @@ const Login = ({ setShowSignup }) => {
       <label className={styles.inputLabel} htmlFor="username">
         Username
       </label>
-      <input className={styles.input} id="username" type="text" name="username" value={formData.username} placeholder="username" />
+      <input className={styles.input} id="username" type="text" name="username" value={formData.username} placeholder="Username" />
       <div className={styles.formError}>
         {/* <p>error</p> */}
       </div>
       <label className={styles.inputLabel} htmlFor="password">
         Password
       </label>
-      <input className={styles.input} id="password" type="password" name="password" value={formData.password} placeholder="password" />
+      <input className={styles.input} id="password" type="password" name="password" value={formData.password} placeholder="Password" />
       <div className={styles.formError}>
         {/* <p>error</p> */}
       </div>
