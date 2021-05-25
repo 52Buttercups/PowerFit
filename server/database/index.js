@@ -1,13 +1,16 @@
 const mongoose = require('mongoose');
-const schemas = require('./models/schemas.js');
+const schemas = require('./models/schemas');
+
 const mongoUri = 'mongodb://localhost/powerfit';
 
 mongoose.connect(mongoUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
-  useFindAndModify: false
+  useFindAndModify: false,
 });
+
+const dbConnect = mongoose.connection;
 
 const User = mongoose.model('User', schemas.users);
 const Workout = mongoose.model('Workout', schemas.workouts);
@@ -20,5 +23,6 @@ module.exports = {
   Workout,
   Exercise,
   MuscleGroup,
-  Equipment
+  Equipment,
+  dbConnect,
 };
