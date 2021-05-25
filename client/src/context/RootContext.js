@@ -1,8 +1,11 @@
 import React from 'react';
 import UsersProvider from './UsersContext';
+import APIProvider from './APIContext';
 
 export const RootProvider = ({ children }) => (
   <UsersProvider>
-    { children }
+    <APIProvider>
+      { children }
+    </APIProvider>
   </UsersProvider>
 );

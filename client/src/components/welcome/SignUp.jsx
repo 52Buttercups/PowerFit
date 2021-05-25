@@ -6,19 +6,44 @@ const SignUp = ({ setShowSignup }) => {
     username: '',
     password: '',
   });
+
+  const changeHander = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
   return (
     <form className={styles.form}>
       <label className={styles.inputLabel} htmlFor="username">
         Username
       </label>
-      <input className={styles.input} id="username" type="text" name="username" value={formData.username} placeholder="Username" />
+      <input
+        className={styles.input}
+        id="username"
+        type="text"
+        name="username"
+        value={formData.username}
+        placeholder="Username"
+        onChange={changeHander}
+      />
       <div className={styles.formError}>
         {/* <p>error</p> */}
       </div>
       <label className={styles.inputLabel} htmlFor="password">
         Password
       </label>
-      <input className={styles.input} id="password" type="password" name="password" value={formData.password} placeholder="Password" />
+      <input
+        className={styles.input}
+        id="password"
+        type="password"
+        name="password"
+        value={formData.password}
+        placeholder="Password"
+        onChange={changeHander}
+      />
       <div className={styles.formError}>
         {/* <p>error</p> */}
       </div>
