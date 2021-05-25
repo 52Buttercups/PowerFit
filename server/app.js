@@ -44,9 +44,9 @@ app.get('/', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 });
 
 // Modularized Routes
-const login = require('./controllers/login');
-const register = require('./controllers/register');
-const logout = require('./controllers/logout');
+const login = require('./routes/login');
+const register = require('./routes/register');
+const logout = require('./routes/logout');
 
 app.use('/login', login);
 app.use('/register', register);
