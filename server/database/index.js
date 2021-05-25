@@ -25,7 +25,7 @@ const UserDetail = new Schema({
   usersId: Number,
   username: String,
   password: String,
-  favorites: Array
+  favorites: Array,
 });
 
 UserDetail.plugin(passportLocalMongoose);

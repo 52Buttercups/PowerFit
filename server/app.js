@@ -10,7 +10,7 @@ const passport = require('passport');
 const connectEnsureLogin = require('connect-ensure-login');
 const models = require('./database/index');
 
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5000;
 const app = express();
 
 const Users = models.User;
@@ -31,7 +31,7 @@ passport.use(Users.createStrategy());
 passport.serializeUser(Users.serializeUser());
 passport.deserializeUser(Users.deserializeUser());
 
-app.get('/', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
+app.get('/', async (req, res) => {
   try {
     res.status(200).json({ message: 'Hello from Buttercups Server' });
   } catch (err) {
