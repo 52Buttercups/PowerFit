@@ -1,8 +1,11 @@
 import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import styles from './login.module.scss';
 import { APIContext } from '../../context/APIContext';
 
 const Login = ({ setShowSignup }) => {
+  const history = useHistory();
+
   const { loginUser } = useContext(APIContext);
   const [formData, setFormData] = useState({
     username: '',
@@ -20,7 +23,10 @@ const Login = ({ setShowSignup }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await loginUser(formData);
+      const res = await loginUser(formData);
+      if (res) {
+        history.push('/dashboard');
+      }
     } catch (err) {
       console.error(err);
     }

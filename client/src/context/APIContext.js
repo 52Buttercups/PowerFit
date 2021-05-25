@@ -1,5 +1,4 @@
 import React, { createContext, useContext } from 'react';
-
 import axios from 'axios';
 import { UsersContext } from './UsersContext';
 
@@ -16,6 +15,7 @@ const APIProvider = ({ children }) => {
       const response = await axios.post('/register', data);
       if (response.data.username) {
         setLoggedInUser(response.data.username);
+        return true;
       }
     } catch (err) {
       console.error(err);
@@ -26,6 +26,7 @@ const APIProvider = ({ children }) => {
       const response = await axios.post('/login', data);
       if (response.data.username) {
         setLoggedInUser(response.data.username);
+        return true;
       }
     } catch (err) {
       console.error(err);
