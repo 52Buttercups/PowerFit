@@ -33,7 +33,7 @@ function App() {
         <CssBaseline />
         <div className="App">
           <Switch>
-            <Route path="/welcome" component={Welcome} />
+            <Route path="/" component={Welcome} />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/viewer" component={WorkoutViewer} />
             <Route path="/builder" component={WorkoutBuilder} />
