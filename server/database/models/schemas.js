@@ -1,41 +1,41 @@
 const mongoose = require('mongoose');
 
-const users = {
-  "usersId": Number,
-  "username": String,
-  "password": String,
-  "favorites": Array
-};
+const users = new mongoose.Schema({
+  usersId: Number,
+  username: String,
+  password: String,
+  favoriteWorkouts: Array,
+});
 
-const workouts = {
-  "workoutsId": Number,
-  "name": String,
-  "exercises": Array
-};
+const workouts = new mongoose.Schema({
+  workoutsId: Number,
+  name: String,
+  exercises: Array,
+});
 
-const exercises = {
-  "exercisesId": Number,
-  "name": String,
-  "instructions": String,
-  "video": String,
-  "muscleGroups": Array,
-  "equipment": Array
-};
+const exercises = new mongoose.Schema({
+  exercisesId: Number,
+  name: String,
+  instructions: String,
+  video: String,
+  muscleGroups: Array,
+  equipment: Array,
+});
 
-const muscleGroups = {
-  "muscleGroupsId": Number,
-  "name": String
-};
+const muscleGroups = new mongoose.Schema({
+  muscleGroupsId: Number,
+  name: String,
+});
 
-const equipment = {
-  "equipmentId": Number,
-  "name": String
-};
+const equipment = new mongoose.Schema({
+  equipmentId: Number,
+  name: String,
+});
 
 module.exports = {
   users,
   workouts,
   exercises,
   muscleGroups,
-  equipment
+  equipment,
 };
