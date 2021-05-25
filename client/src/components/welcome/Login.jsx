@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styles from './login.module.scss';
+import { APIContext } from '../../context/APIContext';
 
 const Login = ({ setShowSignup }) => {
+  const { loginUser } = useContext(APIContext);
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -15,8 +17,24 @@ const Login = ({ setShowSignup }) => {
     });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await loginUser(formData);
+    } catch (err) {
+      console.error(err);
+    }
+    setFormData({
+      username: '',
+      password: '',
+    });
+  };
+
   return (
-    <form className={styles.form}>
+    <form
+      className={styles.form}
+      onSubmit={handleSubmit}
+    >
       <label className={styles.inputLabel} htmlFor="username">
         Username
       </label>

@@ -21,11 +21,22 @@ const APIProvider = ({ children }) => {
       console.error(err);
     }
   };
+  const loginUser = async (data) => {
+    try {
+      const response = await axios.post('/login', data);
+      if (response.data.username) {
+        setLoggedInUser(response.data.username);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <APIContext.Provider
       value={{
         registerUser,
+        loginUser,
       }}
     >
       {children}
