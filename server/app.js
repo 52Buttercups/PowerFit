@@ -51,9 +51,9 @@ app.post('/login', (req, res, next) => {
         return res.redirect(`/login?info=${info}`);
       }
 
-      req.logIn(user, (err) => {
-        if (err) {
-          return next(err);
+      req.logIn(user, (error) => {
+        if (error) {
+          return next(error);
         }
 
         return res.redirect('/');
