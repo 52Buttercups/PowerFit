@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styles from './signUp.module.scss';
+import { APIContext } from '../../context/APIContext';
 
 const SignUp = ({ setShowSignup }) => {
+  const { registerUser } = useContext(APIContext);
   const [formData, setFormData] = useState({
     username: '',
     password: '',
   });
 
-  const changeHander = (e) => {
+  const changeHandler = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -15,8 +17,24 @@ const SignUp = ({ setShowSignup }) => {
     });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await registerUser(formData);
+    } catch (err) {
+      console.error(err);
+    }
+    setFormData({
+      username: '',
+      password: '',
+    });
+  };
+
   return (
-    <form className={styles.form}>
+    <form
+      className={styles.form}
+      onSubmit={handleSubmit}
+    >
       <label className={styles.inputLabel} htmlFor="username">
         Username
       </label>
@@ -27,7 +45,7 @@ const SignUp = ({ setShowSignup }) => {
         name="username"
         value={formData.username}
         placeholder="Username"
-        onChange={changeHander}
+        onChange={changeHandler}
       />
       <div className={styles.formError}>
         {/* <p>error</p> */}
@@ -37,12 +55,13 @@ const SignUp = ({ setShowSignup }) => {
       </label>
       <input
         className={styles.input}
+        autoComplete="on"
         id="password"
         type="password"
         name="password"
         value={formData.password}
         placeholder="Password"
-        onChange={changeHander}
+        onChange={changeHandler}
       />
       <div className={styles.formError}>
         {/* <p>error</p> */}

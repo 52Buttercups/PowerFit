@@ -7,7 +7,7 @@ const Login = ({ setShowSignup }) => {
     password: '',
   });
 
-  const changeHander = (e) => {
+  const changeHandler = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -27,7 +27,7 @@ const Login = ({ setShowSignup }) => {
         name="username"
         value={formData.username}
         placeholder="Username"
-        onChange={changeHander}
+        onChange={changeHandler}
       />
       <div className={styles.formError}>
         {/* <p>error</p> */}
@@ -37,12 +37,13 @@ const Login = ({ setShowSignup }) => {
       </label>
       <input
         className={styles.input}
+        autoComplete="on"
         id="password"
         type="password"
         name="password"
         value={formData.password}
         placeholder="Password"
-        onChange={changeHander}
+        onChange={changeHandler}
       />
       <div className={styles.formError}>
         {/* <p>error</p> */}
