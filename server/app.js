@@ -19,6 +19,8 @@ const Exercises = models.Exercise;
 const MuscleGroups = models.MuscleGroup;
 const { Equipment } = models;
 
+const workouts = require('./routes/workout');
+
 app.use(express.json());
 app.use(logger('dev'));
 app.use(bodyparser.json());
@@ -26,10 +28,12 @@ app.use(bodyparser.urlencoded({ extended: true }));
 app.use(expressSession);
 app.use(passport.initialize());
 app.use(passport.session());
-
 passport.use(Users.createStrategy());
 passport.serializeUser(Users.serializeUser());
 passport.deserializeUser(Users.deserializeUser());
+
+// other routes
+app.use('/workouts', workouts);
 
 app.get('/', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
   try {
