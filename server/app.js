@@ -43,36 +43,38 @@ app.post('/login', (req, res, next) => {
   passport.authenticate('local',
     (err, user, info) => {
       if (err) {
-        return next(err);
+        console.log(err);
+        return res.status(400).json({ message: 'Unable to login user!', error: `${err}` });
       }
 
       if (!user) {
         console.log(info);
-        return res.status(400).json({message: 'Unable to login user!', loggedIn: false, error: `${info}`});
+        return res.status(400).json({ message: 'Unable to login user!', loggedIn: false, error: `${info}` });
       }
 
       req.logIn(user, (err) => {
         if (err) {
-          return next(err);
+          console.log9;
         }
 
-        res.status(201).json({message: `${req.body.username} is now logged in.`, loggedIn: true, username: `${req.body.username}`})
+        res.status(201).json({ message: `${req.body.username} is now logged in.`, loggedIn: true, username: `${req.body.username}` });
       });
     })(req, res, next);
 });
 
-app.get('/login', (req, res) => {
-  res.send('Welcome to the login page!');
+app.get('/logout', (req, res) => {
+  req.logout();
+  res.status(200).json({ message: 'User has been logged out.', loggedIn: false });
 });
 
 app.post('/register', (req, res) => {
   Users.register(new Users({ username: req.body.username }), req.body.password, (err, user) => {
     if (err) {
       console.log(err);
-      return res.status(400).json({message: `${req.body.username} has failed to be created.`, error: `${err}`});
+      return res.status(400).json({ message: `${req.body.username} has failed to be created.`, error: `${err}` });
     }
     passport.authenticate('local')(req, res, () => {
-      res.status(201).json({message: `${req.body.username} has been created.`})
+      res.status(201).json({ message: `${req.body.username} has been created.` });
     });
   });
 });
