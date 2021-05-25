@@ -9,6 +9,8 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 // components
 import Welcome from './components/welcome/Welcome';
 import Dashboard from './components/dashboard/Dashboard';
+import WorkoutViewer from './components/workoutView/WorkoutViewer';
+import WorkoutBuilder from './components/workoutBuilder/WorkoutBuilder';
 
 const theme = createMuiTheme({
   palette: {
@@ -16,7 +18,7 @@ const theme = createMuiTheme({
       default: '#323131',
     },
     primary: {
-      main: '#D0DFEB',
+      main: '#f9f9ed',
     },
     secondary: {
       main: '#FF681E',
@@ -31,8 +33,10 @@ function App() {
         <CssBaseline />
         <div className="App">
           <Switch>
-            <Route path="/welcome" component={Welcome} />
+            <Route exact path="/" component={Welcome} />
             <Route path="/dashboard" component={Dashboard} />
+            <Route path="/viewer" component={WorkoutViewer} />
+            <Route path="/builder" component={WorkoutBuilder} />
           </Switch>
         </div>
       </ThemeProvider>

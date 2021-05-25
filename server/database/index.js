@@ -13,6 +13,8 @@ mongoose.connect(mongoUri, {
   useFindAndModify: false,
 });
 
+const dbConnect = mongoose.connection;
+
 // const User = mongoose.model('User', schemas.users);
 const Workout = mongoose.model('Workout', schemas.workouts);
 const Exercise = mongoose.model('Exercise', schemas.exercises);
@@ -35,4 +37,5 @@ module.exports = {
   Exercise,
   MuscleGroup,
   Equipment,
+  dbConnect,
 };
