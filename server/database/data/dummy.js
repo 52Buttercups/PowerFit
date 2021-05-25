@@ -164,7 +164,7 @@ const equipmentData = [
 ];
 
 const insertDummyData = () => {
-  db.UserInfo.create(userData)
+  db.User.create(userData)
     .then(() => db.Workout.create(workoutData))
     .then(() => db.Exercise.create(exerciseData))
     .then(() => db.MuscleGroup.create(muscleGroupsData))
