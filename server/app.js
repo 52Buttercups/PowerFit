@@ -12,12 +12,13 @@ const passport = require('passport');
 // Authenticate routes via: connectEnsureLogin.ensureLoggedIn()
 const connectEnsureLogin = require('connect-ensure-login');
 // Importing of the mongodb models
-const models = require('./database/index');
+
+const { db } = require('./database/index');
+const { Users } = require('./database/models/schema');
+const controller = require('./controllers');
 
 const PORT = process.env.PORT || 5000;
 const app = express();
-// Destructured Models
-const {User, Workouts, Exercises, MuscleGroups, Equipment} = models;
 
 app.use(express.json());
 app.use(logger('dev'));
@@ -28,11 +29,19 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Selects local-strategy and configures it
-passport.use(User.createStrategy());
+passport.use(Users.createStrategy());
 // Serializes - Adds the session cookie
-passport.serializeUser(User.serializeUser());
+passport.serializeUser(Users.serializeUser());
 // Deserializes - Retrieves the user info
-passport.deserializeUser(User.deserializeUser());
+passport.deserializeUser(Users.deserializeUser());
+
+app.get('/exercises', controller.getAllExercises);
+app.get('/exercises/:name', controller.getExercisesByName);
+app.get('/workouts', controller.getAllWorkouts);
+app.get('/workouts/:name', controller.getWorkoutsByName);
+app.use('/login', controller.loginUser);
+app.use('/register', controller.registerUser);
+app.use('/logout', controller.logoutUser);
 
 app.get('/api/authenticated', connectEnsureLogin.ensureLoggedIn(), (req, res) => {
   res.send('We are authenticated');
@@ -40,7 +49,7 @@ app.get('/api/authenticated', connectEnsureLogin.ensureLoggedIn(), (req, res) =>
 
 app.get('/', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
   try {
-    console.log(req.session)
+    console.log(req.session);
     res.status(200).json({ message: 'Hello from Buttercups Server' });
   } catch (err) {
     console.error(err);
@@ -48,13 +57,13 @@ app.get('/', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 });
 
 // Modularized Routes
-const login = require('./routes/login');
-const register = require('./routes/register');
-const logout = require('./routes/logout');
+// const login = require('./routes/login');
+// const register = require('./routes/register');
+// const logout = require('./routes/logout');
 
-app.use('/login', login);
-app.use('/register', register);
-app.use('/logout', logout);
+// app.use('/login', login);
+// app.use('/register', register);
+// app.use('/logout', logout);
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 
