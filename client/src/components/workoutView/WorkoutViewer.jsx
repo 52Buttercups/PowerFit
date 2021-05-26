@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const WorkoutViewer = ({ location }) => {
+  console.log(location);
   const classes = useStyles();
 
   return (

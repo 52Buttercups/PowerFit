@@ -1,10 +1,12 @@
 import React, { useContext, useEffect } from 'react';
+import { useHistory, Link } from 'react-router-dom';
 import styles from './builder.module.scss';
 import Exercise from './Exercise';
 import { WorkoutContext } from '../../context/WorkoutContext';
 import { APIContext } from '../../context/APIContext';
 
 const Builder = () => {
+  const history = useHistory();
   const {
     newWorkout, setNewWorkout, allExercises, setAllExercises,
   } = useContext(WorkoutContext);
@@ -27,6 +29,8 @@ const Builder = () => {
       name: e.target.value,
     });
   };
+
+  console.log(newWorkout);
 
   const removeExercise = (name) => {
     setNewWorkout({
@@ -57,8 +61,8 @@ const Builder = () => {
           />
           {newWorkout.exercises.length > 0
             && newWorkout.exercises.map((exercise, i) => (
-              <div className={styles.workoutItem}>
-                <p key={i}>
+              <div key={i} className={styles.workoutItem}>
+                <p>
                   {exercise.name}
                   {' '}
                 </p>
@@ -67,7 +71,19 @@ const Builder = () => {
             ))}
         </div>
       </div>
-      <button>Begin Workout</button>
+      <Link
+        className={styles.beginButton}
+        to={{
+          pathname: '/viewer',
+          hash: `${newWorkout.name}`,
+          state: { newWorkout },
+        }}
+      >
+        <button>
+          Begin Workout
+        </button>
+      </Link>
+
     </div>
   );
 };
