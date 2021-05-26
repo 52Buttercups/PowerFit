@@ -1,2 +1,25 @@
 @import '../../variables.scss';
 
+.exerciseContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+
+  p {
+    text-transform: capitalize;
+    text-decoration: underline;
+  }
+}
+
+.tagContainer {
+  display: flex;
+  flex-direction: row;
+
+  p {
+    font-size: 0.8rem;
+    color: $primary-color;
+    text-decoration: none;
+    margin: 0 0.5em;
+  }
+}
