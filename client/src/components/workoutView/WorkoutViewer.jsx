@@ -11,6 +11,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
+import { useHistory } from 'react-router-dom';
 import stockImg from '../../assets/core-workout.jpg';
 
 // components
@@ -37,8 +38,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const WorkoutViewer = ({ location }) => {
+  const history = useHistory();
   const classes = useStyles();
-  const { workoutToView } = useContext(WorkoutContext);
+  const { workoutToView, setNewWorkout } = useContext(WorkoutContext);
 
   return (
     <div className={classes.root}>
@@ -60,7 +62,13 @@ const WorkoutViewer = ({ location }) => {
               <VideoPlayer workout={workoutToView} />
             </CardActionArea>
             <CardActions className={classes.content}>
-              <Button>Edit this workout</Button>
+              <Button onClick={() => {
+                setNewWorkout(workoutToView);
+                history.push('/builder');
+              }}
+              >
+                Edit this workout
+              </Button>
               <Button>Mark as complete</Button>
               <Button>Save to My Workouts</Button>
             </CardActions>
