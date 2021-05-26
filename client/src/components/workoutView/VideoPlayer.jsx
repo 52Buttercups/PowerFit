@@ -18,7 +18,7 @@ const YoutubePlayer = ({ workout }) => {
 
   // function that returns the first videoId of exercises or a default video id
   const getDefaultVideoId = () => {
-    let id = 'M35NJRr8-I';
+    let id = 'eM35NJRr8-I';
     // if there are no exersices return defautl
     if (!exercises) {
       return id;
@@ -27,14 +27,14 @@ const YoutubePlayer = ({ workout }) => {
     if (exercises.length > 0) {
       const firstVideo = exercises[0].video;
       // check there is a youtube url if not return default video id
-      if (!firstVideo) {
+      if (firstVideo === '' || firstVideo === null) {
         return id;
       }
       // getYouTubeID with fuzzy false returns only strict id matches
       // this will verify the video url has a valid id
       const firstVideoId = getYouTubeID(firstVideo, { fuzzy: false });
 
-      // if there is a valid id  reassign id
+      // if there is a valid id reassign id
       if (firstVideoId !== null) {
         id = firstVideoId;
       }
@@ -42,13 +42,37 @@ const YoutubePlayer = ({ workout }) => {
     return id;
   };
 
-  // function that loops over exercise videos and parses video ids into a playlist string
+  // function that loops over exercise videos and parses video ids into a playlist url string
+  const getPlaylistIds = () => {
+    let baseUrl = `https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=1&playlist=${defaultVideoId}`;
+    // if only one exercise then it is already added to the defaultid in the useEffect
+    if (exercises.length <= 1) {
+      return baseUrl;
+    }
+
+    // get a list of videos from exercises
+    const videoURLs = exercises.map((exercise) => exercise.video);
+
+    // loop over videos and if there is a missing video use the filler video id
+    const videoIds = videoURLs.map((url) => {
+      if (getYouTubeID(url) === null || url === null) {
+        return 'eM35NJRr8-I';
+      }
+      return getYouTubeID(url);
+    });
+
+    const playlistString = videoIds.join(',');
+
+    baseUrl = `https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=1&playlist=${playlistString}`;
+    return baseUrl;
+  };
 
   useEffect(() => {
     const defaultId = getDefaultVideoId();
-    console.log(defaultId);
     setDefaultVideoId(defaultId);
-    setPlaylist(`https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=1&playlist=${defaultVideoId}`);
+
+    const playlistIds = getPlaylistIds();
+    setPlaylist(playlistIds);
   }, []);
 
   return (
