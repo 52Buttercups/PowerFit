@@ -50,9 +50,26 @@ const getWorkoutsByName = (req, res) => {
     });
 };
 
+/*
+* UserWorkouts Model
+*/
+const createUserWorkout = (req, res) => {
+  const userWorkout = req.body;
+  models.UserWorkouts.create(userWorkout)
+    .then((results) => {
+      console.log(results);
+      res.status(200).json(results);
+    })
+    .catch((err) => {
+      console.error(err.message);
+      res.send(400);
+    });
+};
+
 module.exports = {
   getAllExercises,
   getExercisesByName,
   getAllWorkouts,
   getWorkoutsByName,
+  createUserWorkout,
 };
