@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from './builder.module.scss';
+import Exercise from './Exercise';
 
-const samepleExercises = [
+const sampleExercises = [
   {
     name: 'pushups',
     instructions: '1. Get down on all fours, placing your hands slightly wider than your shoulders. 2. Straighten your arms and legs. 3. Lower your body until your chest nearly touches the floor. 4. Pause, then push yourself back up. 5. Repeat.',
@@ -45,7 +46,9 @@ const Builder = () => (
     <div className={styles.exerciseWorkoutContainer}>
       <div className={styles.exercises}>
         <h3>Choose Exercises</h3>
-
+        {sampleExercises.map((exercise, idx) => (
+          <Exercise exercise={exercise} key={idx} />
+        ))}
       </div>
       <div className={styles.workout}>
         <h3>My Workout</h3>
