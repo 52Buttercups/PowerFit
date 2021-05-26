@@ -50,9 +50,12 @@ const createExercise = (req, res) => {
 };
 
 /*
-* Workout Model
+* General Workout Model
 */
 const getAllWorkouts = (req, res) => {
+  /*
+  * Get all general workouts from the workouts table.
+  */
   models.Workouts.find({})
     .then((results) => {
       res.status(200).json(results);
@@ -63,7 +66,10 @@ const getAllWorkouts = (req, res) => {
     });
 };
 
-const getWorkoutsByName = (req, res) => {
+const getAllWorkoutsByName = (req, res) => {
+  /*
+  * Get all general workouts from the workouts table by workoutname.
+  */
   models.Workouts.find({ name: req.params.name })
     .then((results) => {
       res.status(200).json(results);
@@ -71,6 +77,20 @@ const getWorkoutsByName = (req, res) => {
     .catch((err) => {
       console.error(err.message);
       res.send(400);
+    });
+};
+
+const createWorkouts = (req, res) => {
+  /*
+  * Creates a general workout in the workouts table.
+  */
+  const workout = req.body;
+  models.Workouts.create(workout)
+    .then((results) => {
+      res.status(201).json(results);
+    })
+    .catch((err) => {
+      console.err(err.message || err);
     });
 };
 
@@ -116,9 +136,10 @@ module.exports = {
   getAllExercises,
   getExercisesByName,
   getAllWorkouts,
-  getWorkoutsByName,
+  getAllWorkoutsByName,
   getAllUserWorkouts,
   getWorkoutsByUser,
   createUserWorkout,
   createExercise,
+  createWorkouts,
 };
