@@ -22,7 +22,7 @@ schema.users.plugin(passportLocalMongoose);
 const Users = mongoose.model('User', schema.users);
 const Workouts = mongoose.model('Workout', schema.workouts);
 const Exercises = mongoose.model('Exercise', schema.exercises);
-const UserWorkouts = mongoose.model('UserWorkOuts', schema.userWorkouts);
+const UserWorkouts = mongoose.model('UserWorkOut', schema.userWorkouts);
 
 module.exports = {
   db,
