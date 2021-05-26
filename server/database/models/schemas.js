@@ -1,20 +1,20 @@
 const mongoose = require('mongoose');
 
 const users = new mongoose.Schema({
-  usersId: Number,
+  userId: Number,
   username: String,
   password: String,
   favoriteWorkouts: Array,
 });
 
 const workouts = new mongoose.Schema({
-  workoutsId: Number,
+  workoutId: Number,
   name: String,
   exercises: Array,
 });
 
 const exercises = new mongoose.Schema({
-  exercisesId: Number,
+  exerciseId: Number,
   name: String,
   instructions: String,
   video: String,
@@ -23,7 +23,7 @@ const exercises = new mongoose.Schema({
 });
 
 const muscleGroups = new mongoose.Schema({
-  muscleGroupsId: Number,
+  muscleGroupId: Number,
   name: String,
 });
 
