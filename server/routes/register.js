@@ -5,11 +5,11 @@ const passport = require('passport');
 
 const models = require('../database/index');
 
-const { User } = models;
+const { Users } = models;
 
 router.post('/', (req, res) => {
   // Uses passport-local-mongoose's register function to automatically add a salt and hash
-  User.register(new User({ username: req.body.username }), req.body.password, (err, user) => {
+  Users.register(new Users({ username: req.body.username }), req.body.password, (err) => {
     if (err) {
       console.log(err);
       return res.status(400).json({ message: `${req.body.username} has failed to be created.`, error: `${err}` });
