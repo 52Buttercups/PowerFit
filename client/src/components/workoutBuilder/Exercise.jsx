@@ -12,19 +12,15 @@ const sampleExercise = {
 };
 
 export const Exercise = ({ exercise }) => {
-  console.log(exercise);
+  console.log(exercise.equipment);
   return (
     <div className={styles.exerciseContainer}>
       <p>{exercise.name}</p>
       <div className={styles.tagContainer}>
         {exercise.muscleGroups.length > 0
-          && exercise.muscleGroups.map((tag, i) => {
-            <p key={i}>{tag.name}</p>;
-          })}
+          && exercise.muscleGroups.map((tag, i) => (<p key={i}>{tag.name}</p>))}
         {exercise.equipment.length > 0
-          && exercise.equipment.map((tag, i) => {
-            <p key={i}>{tag.name}</p>;
-          })}
+          && exercise.equipment.map((tag, i) => (<p key={i}>{tag.name}</p>))}
       </div>
     </div>
   );
