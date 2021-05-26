@@ -13,7 +13,10 @@ const Welcome = () => {
       </div>
       <div className={styles.heroText}>
         <h2>Signup or Login to Start Working Out</h2>
-        <p>Some text here</p>
+        <p>
+          A smarter fitness application that allows
+          users to spend more time working out and less time finding a workout.
+        </p>
       </div>
     </div>
   );
