@@ -21,7 +21,7 @@ const MuscleGroup = mongoose.model('MuscleGroup', schemas.muscleGroups);
 const Equipment = mongoose.model('Equipment', schemas.equipment);
 
 module.exports = {
-  UserInfo,
+  User,
   Workout,
   Exercise,
   MuscleGroup,
