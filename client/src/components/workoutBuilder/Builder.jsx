@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styles from './builder.module.scss';
 import Exercise from './Exercise';
+import { WorkoutContext } from '../../context/WorkoutContext';
 
 const sampleExercises = [
   {
@@ -40,23 +41,41 @@ const sampleExercises = [
   },
 ];
 
-const Builder = () => (
-  <div className={styles.builderContainer}>
-    <h2>Workout Builder</h2>
-    <div className={styles.exerciseWorkoutContainer}>
-      <div className={styles.exercises}>
-        <h3>Choose Exercises</h3>
-        {sampleExercises.map((exercise, idx) => (
-          <Exercise exercise={exercise} key={idx} />
-        ))}
+const Builder = () => {
+  const { newWorkout, setNewWorkout } = useContext(WorkoutContext);
+  const removeExercise = (name) => {
+    setNewWorkout({
+      ...newWorkout,
+      exercises: [
+        ...newWorkout.exercises.filter((exercise) => exercise.name !== name),
+      ],
+    });
+  };
+  return (
+    <div className={styles.builderContainer}>
+      <h2>Workout Builder</h2>
+      <div className={styles.exerciseWorkoutContainer}>
+        <div className={styles.exercises}>
+          <h3>Choose Exercises</h3>
+          {sampleExercises.map((exercise, idx) => (
+            <Exercise exercise={exercise} key={idx} />
+          ))}
+        </div>
+        <div className={styles.workout}>
+          <h3>My Workout</h3>
+          {newWorkout.exercises.length > 0
+            && newWorkout.exercises.map((exercise, i) => (
+              <p key={i}>
+                {exercise.name}
+                {' '}
+                <i className="far fa-minus-square" onClick={() => removeExercise(exercise.name)} />
+              </p>
+            ))}
+        </div>
       </div>
-      <div className={styles.workout}>
-        <h3>My Workout</h3>
-        <p>Exercise</p>
-      </div>
+      <button>Begin Workout</button>
     </div>
-    <button>Begin Workout</button>
-  </div>
-);
+  );
+};
 
 export default Builder;

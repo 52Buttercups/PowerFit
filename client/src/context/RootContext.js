@@ -1,11 +1,14 @@
 import React from 'react';
 import UsersProvider from './UsersContext';
 import APIProvider from './APIContext';
+import WorkoutProvider from './WorkoutContext';
 
 export const RootProvider = ({ children }) => (
   <UsersProvider>
-    <APIProvider>
-      { children }
-    </APIProvider>
+    <WorkoutProvider>
+      <APIProvider>
+        {children}
+      </APIProvider>
+    </WorkoutProvider>
   </UsersProvider>
 );
