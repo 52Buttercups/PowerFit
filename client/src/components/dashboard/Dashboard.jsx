@@ -19,7 +19,7 @@ const userWorkouts = {
       exercises: [
         {
           id: 1,
-          name: 'pushups',
+          name: 'Perfect pushups',
           instructions: 'Get down on the floor and push the earth away from yourself like Chuck Norris',
           video: 'https://www.youtube.com/watch?v=IODxDxX7oi4',
           muscleGroups: [
@@ -38,7 +38,7 @@ const userWorkouts = {
           id: 1,
           name: 'pushups 2.0',
           instructions: 'Get down on the floor and push the earth away from yourself like Chuck Norris',
-          video: 'https://www.youtube.com/watch?v=IODxDxX7oi4',
+          video: null,
           muscleGroups: [
             {
               id: 1,
@@ -53,7 +53,7 @@ const userWorkouts = {
         },
         {
           id: 1,
-          name: 'pushups ',
+          name: 'Final Round pushups',
           instructions: 'Get down on the floor and push the earth away from yourself like Chuck Norris',
           video: '',
           muscleGroups: [

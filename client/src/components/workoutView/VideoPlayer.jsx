@@ -77,6 +77,7 @@ const YoutubePlayer = ({ workout }) => {
 
   return (
     <div className="youtube-wrapper">
+      <p>Some exercises may not have videos, please enjoy the music instead!</p>
       <iframe
         title="ytplayer"
         id="ytplayer"
