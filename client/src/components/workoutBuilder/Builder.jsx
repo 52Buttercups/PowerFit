@@ -43,11 +43,13 @@ const Builder = () => {
           <h3>My Workout</h3>
           {newWorkout.exercises.length > 0
             && newWorkout.exercises.map((exercise, i) => (
-              <p key={i}>
-                {exercise.name}
-                {' '}
+              <div className={styles.workoutItem}>
+                <p key={i}>
+                  {exercise.name}
+                  {' '}
+                </p>
                 <i className="far fa-minus-square" onClick={() => removeExercise(exercise.name)} />
-              </p>
+              </div>
             ))}
         </div>
       </div>

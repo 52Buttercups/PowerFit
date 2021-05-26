@@ -55,7 +55,6 @@
 }
 
 .workout {
-  text-align: center;
   width: 40%;
   height: 100%;
 
@@ -64,19 +63,28 @@
     color: $primary-color;
     font-family: $raleway;
     margin-bottom: 2em;
+    text-align: center;
   }
 
   p {
     font-size: 1.2rem;
     color: $secondary-color;
     font-family: $open-sans;
-    text-align: left;
     text-transform: capitalize;
-    padding: 0 5em;
   }
 
-  i {
-    font-size: 0.8rem;
-  }
+
 }
 
+.workoutItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 70%;
+  margin: 0 auto;
+
+  i {
+    color: $secondary-color;
+  }
+}
