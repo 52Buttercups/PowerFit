@@ -1,32 +1,50 @@
 const express = require('express');
 const models = require('../database/index');
 
-const Workouts = models.Workout;
-const Exercise = models.Exercise;
+const { Exercise, Workout } = models;
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   // This route should send back users workouts
-  Workouts.find({})
-    .then((result) => {
-      res.status(200).json(result);
-      res.end();
-    })
-    .catch((err) => {
-      console.log('err', err);
-      res.status(400);
-    });
+  try {
+    const workouts = await Workout.find({});
+
+    console.log('workouts', workouts);
+    const workoutsWithExercises = [];
+
+    // loop over workouts
+    Promise.all(workouts.forEach(async (workout) => {
+      // here is a workout with exercise ids
+      const exercises = await Promise.all(workout.exercises.map(async (exerciseId) => {
+        const exercise = await Exercise.findOne({ exerciseId });
+        return exercise;
+      }));
+      console.log('should be a workout', workout);
+      delete workout.exercises;
+
+      workout[exercises] = exercises;
+      console.log('should be workout with  exercises', workout);
+      workoutsWithExercises.push(workout);
+    }))
+      .then((result) => console.log({result}))
+      .catch((err) => {
+        console.log(err);
+      });
+
+    res.status(200).json(workoutsWithExercises);
+  } catch (err) {
+    console.log('err', err);
+  }
 });
 
 router.get('/:id', async (req, res) => {
   try {
-    const workout = await Workouts.findOne({ workoutId: req.params.id });
+    const workout = await Workout.findOne({ workoutId: req.params.id });
 
     const exercises = await Promise.all(workout.exercises.map(async (exerciseId) => {
       const exercise = await Exercise.findOne({ exerciseId });
       return exercise;
     }));
-    console.log('example', exercises);
 
     delete workout.exercises;
 

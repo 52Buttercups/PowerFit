@@ -15,4 +15,15 @@ router.get('/', (req, res) => {
     });
 });
 
+router.get('/:id', (req, res) => {
+  Exercise.findOne({ exerciseId: req.params.id })
+    .then((results) => {
+      res.status(200).json(results);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(401);
+    });
+});
+
 module.exports = router;
