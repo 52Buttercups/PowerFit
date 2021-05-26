@@ -38,6 +38,7 @@ const userData = [
   {
     username: 'testUsername1',
     password: 'testPassword1',
+    favoriteWorkouts: ['testWorkout1'],
   },
   {
     username: 'testUsername2',

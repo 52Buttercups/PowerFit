@@ -75,8 +75,30 @@ const getWorkoutsByName = (req, res) => {
 };
 
 /*
-* UserWorkouts Model
+* User Workout Model
 */
+const getAllUserWorkouts = (req, res) => {
+  models.UserWorkouts.find({})
+    .then((results) => {
+      res.status(200).json(results);
+    })
+    .catch((err) => {
+      console.error(err.message);
+      res.send(400);
+    });
+};
+
+const getWorkoutsByUser = (req, res) => {
+  models.UserWorkouts.find({ username: req.params.name })
+    .then((results) => {
+      res.status(200).json(results);
+    })
+    .catch((err) => {
+      console.error(err.message);
+      res.send(400);
+    });
+};
+
 const createUserWorkout = (req, res) => {
   const userWorkout = req.body;
   models.UserWorkouts.create(userWorkout)
@@ -95,6 +117,8 @@ module.exports = {
   getExercisesByName,
   getAllWorkouts,
   getWorkoutsByName,
+  getAllUserWorkouts,
+  getWorkoutsByUser,
   createUserWorkout,
   createExercise,
 };
