@@ -4,11 +4,24 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 100%;
+  padding: 0 10em;
+  margin-bottom: 1em;
+}
+
+.nameContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-end;
 
   p {
     text-transform: capitalize;
     text-decoration: underline;
+    text-align: left;
+  }
+  i {
+    color: $secondary-color;
+    margin: 0 0 .3em 1em;
   }
 }
 

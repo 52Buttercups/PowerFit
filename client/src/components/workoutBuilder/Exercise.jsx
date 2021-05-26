@@ -15,7 +15,10 @@ export const Exercise = ({ exercise }) => {
   console.log(exercise.equipment);
   return (
     <div className={styles.exerciseContainer}>
-      <p>{exercise.name}</p>
+      <div className={styles.nameContainer}>
+        <p>{exercise.name}</p>
+        <i className="far fa-plus-square" />
+      </div>
       <div className={styles.tagContainer}>
         {exercise.muscleGroups.length > 0
           && exercise.muscleGroups.map((tag, i) => {
