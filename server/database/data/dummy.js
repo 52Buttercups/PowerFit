@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-const db = require('../index');
-=======
 /*
 + users (list of users)
   - username
@@ -34,7 +31,6 @@ const db = require('../index');
 
 const { Users, Workouts, Exercises } = require('../index');
 // const { db } = require('../index');
->>>>>>> 3bff2e050376a78cb5c8044ababf3c6baa4bd0b5
 
 const userData = [
   {
