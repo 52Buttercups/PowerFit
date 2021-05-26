@@ -25,6 +25,30 @@ const getExercisesByName = (req, res) => {
     });
 };
 
+const createExercise = (req, res) => {
+  const {
+    name, instructions, video, muscleGroups, equipment,
+  } = req.body;
+  models.Exercises.create({
+    name,
+    instructions,
+    video,
+    muscleGroups: [{
+      name: muscleGroups,
+    }],
+    equipment: [{
+      name: equipment,
+    }],
+  })
+    .then(() => {
+      res.status(201).json({ message: `Exercise: "${req.body.name}" has been created.` });
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(401).json({ message: `Exercise: "${req.body.name}" has failed to be created.` });
+    });
+};
+
 /*
 * Workout Model
 */
@@ -50,9 +74,51 @@ const getWorkoutsByName = (req, res) => {
     });
 };
 
+/*
+* User Workout Model
+*/
+const getAllUserWorkouts = (req, res) => {
+  models.UserWorkouts.find({})
+    .then((results) => {
+      res.status(200).json(results);
+    })
+    .catch((err) => {
+      console.error(err.message);
+      res.send(400);
+    });
+};
+
+const getWorkoutsByUser = (req, res) => {
+  models.UserWorkouts.find({ username: req.params.name })
+    .then((results) => {
+      res.status(200).json(results);
+    })
+    .catch((err) => {
+      console.error(err.message);
+      res.send(400);
+    });
+};
+
+const createUserWorkout = (req, res) => {
+  const userWorkout = req.body;
+  models.UserWorkouts.create(userWorkout)
+    .then((results) => {
+      console.log(results);
+      res.status(200).json(results);
+    })
+    .catch((err) => {
+      console.error(err.message);
+      res.send(400);
+    });
+};
+
 module.exports = {
   getAllExercises,
   getExercisesByName,
   getAllWorkouts,
   getWorkoutsByName,
+  getAllUserWorkouts,
+  getWorkoutsByUser,
+  createUserWorkout,
+  createExercise,
 };

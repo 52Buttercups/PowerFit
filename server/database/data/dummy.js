@@ -29,13 +29,16 @@
   - name
 */
 
-const { Users, Workouts, Exercises } = require('../index');
+const {
+  Users, Workouts, Exercises,
+} = require('../index');
 // const { db } = require('../index');
 
 const userData = [
   {
     username: 'testUsername1',
     password: 'testPassword1',
+    favoriteWorkouts: ['testWorkout1'],
   },
   {
     username: 'testUsername2',
@@ -281,6 +284,7 @@ const insertDummyData = async () => {
     await Users.create(userData);
     await Workouts.create(workoutData);
     await Exercises.create(exerciseData);
+    // await UserWorkouts.create(userWorkoutData);
   } catch (err) {
     console.log(err);
   }

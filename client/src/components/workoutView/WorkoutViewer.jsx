@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 // material ui
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -15,6 +15,7 @@ import stockImg from '../../assets/core-workout.jpg';
 
 // components
 import WorkoutInfo from './WorkoutInfo';
+import VideoPlayer from './VideoPlayer';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
 const WorkoutViewer = ({ location }) => {
   console.log(location);
   const classes = useStyles();
+  const [workout, setWorkout] = useState(location.state.workout);
 
   return (
     <div className={classes.root}>
@@ -54,12 +56,7 @@ const WorkoutViewer = ({ location }) => {
         <Grid item xs={12} sm={6}>
           <Card className={classes.root}>
             <CardActionArea>
-              <CardMedia
-                component="img"
-                className={classes.media}
-                image={stockImg}
-                title="Contemplative Reptile"
-              />
+              <VideoPlayer workout={workout} />
             </CardActionArea>
             <CardActions className={classes.content}>
               <Button>Edit this workout</Button>
