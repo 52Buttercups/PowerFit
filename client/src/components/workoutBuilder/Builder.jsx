@@ -30,8 +30,6 @@ const Builder = () => {
     });
   };
 
-  console.log(newWorkout);
-
   const removeExercise = (name) => {
     setNewWorkout({
       ...newWorkout,

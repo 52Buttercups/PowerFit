@@ -4,18 +4,23 @@ import { WorkoutContext } from '../../context/WorkoutContext';
 
 export const Exercise = ({ exercise }) => {
   const { newWorkout, setNewWorkout } = useContext(WorkoutContext);
+
+  const addExercise = () => {
+    if (!newWorkout.exercises.includes(exercise)) {
+      setNewWorkout({
+        ...newWorkout,
+        exercises: [...newWorkout.exercises, exercise],
+      });
+    }
+  };
+
   return (
     <div className={styles.exerciseContainer}>
       <div className={styles.nameContainer}>
         <p>{exercise.name}</p>
         <i
           className="far fa-plus-square"
-          onClick={() => {
-            setNewWorkout({
-              ...newWorkout,
-              exercises: [...newWorkout.exercises, exercise],
-            });
-          }}
+          onClick={addExercise}
         />
       </div>
       <div className={styles.tagContainer}>
