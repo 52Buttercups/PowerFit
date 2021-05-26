@@ -35,14 +35,11 @@ passport.serializeUser(Users.serializeUser());
 passport.deserializeUser(Users.deserializeUser());
 
 /** ***********************************************************
-*          All Routes
-************************************************************ */
-
-/** ***********************************************************
 *          Exercises Routes
 ************************************************************ */
 app.get('/exercises', connectEnsureLogin.ensureLoggedIn(), controller.getAllExercises);
 app.get('/exercises/:name', connectEnsureLogin.ensureLoggedIn(), controller.getExercisesByName);
+app.post('/exercises', connectEnsureLogin.ensureLoggedIn(), controller.createExercise);
 
 /** ***********************************************************
 *          General Workouts Routes
@@ -50,6 +47,13 @@ app.get('/exercises/:name', connectEnsureLogin.ensureLoggedIn(), controller.getE
 app.get('/workouts', connectEnsureLogin.ensureLoggedIn(), controller.getAllWorkouts);
 app.get('/workouts/:name', connectEnsureLogin.ensureLoggedIn(), controller.getAllWorkoutsByName);
 app.post('/workouts', connectEnsureLogin.ensureLoggedIn(), controller.createWorkouts);
+
+/** ***********************************************************
+*          User Workouts Routes
+************************************************************ */
+app.get('/userworkouts', connectEnsureLogin.ensureLoggedIn(), controller.getAllUserWorkouts);
+app.get('/userworkouts/:name', connectEnsureLogin.ensureLoggedIn(), controller.getWorkoutsByUser);
+app.post('/userWorkouts', connectEnsureLogin.ensureLoggedIn(), controller.createUserWorkout);
 
 app.get('/api/authenticated', connectEnsureLogin.ensureLoggedIn(), (req, res) => {
   res.send('We are authenticated');
