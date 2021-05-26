@@ -39,6 +39,8 @@ app.get('/exercises', connectEnsureLogin.ensureLoggedIn(), controller.getAllExer
 app.get('/exercises/:name', connectEnsureLogin.ensureLoggedIn(), controller.getExercisesByName);
 app.get('/workouts', connectEnsureLogin.ensureLoggedIn(), controller.getAllWorkouts);
 app.get('/workouts/:name', connectEnsureLogin.ensureLoggedIn(), controller.getWorkoutsByName);
+app.get('/userworkouts', connectEnsureLogin.ensureLoggedIn(), controller.getAllUserWorkouts);
+app.get('/userworkouts/:name', connectEnsureLogin.ensureLoggedIn(), controller.getWorkoutsByUser);
 
 app.get('/api/authenticated', connectEnsureLogin.ensureLoggedIn(), (req, res) => {
   res.send('We are authenticated');

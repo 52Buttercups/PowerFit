@@ -50,9 +50,36 @@ const getWorkoutsByName = (req, res) => {
     });
 };
 
+/*
+* User Workout Model
+*/
+const getAllUserWorkouts = (req, res) => {
+  models.UserWorkouts.find({})
+    .then((results) => {
+      res.status(200).json(results);
+    })
+    .catch((err) => {
+      console.error(err.message);
+      res.send(400);
+    });
+};
+
+const getWorkoutsByUser = (req, res) => {
+  models.UserWorkouts.find({ username: req.params.name })
+    .then((results) => {
+      res.status(200).json(results);
+    })
+    .catch((err) => {
+      console.error(err.message);
+      res.send(400);
+    });
+};
+
 module.exports = {
   getAllExercises,
   getExercisesByName,
   getAllWorkouts,
   getWorkoutsByName,
+  getAllUserWorkouts,
+  getWorkoutsByUser,
 };
