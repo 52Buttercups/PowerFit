@@ -40,6 +40,7 @@ app.get('/exercises/:name', connectEnsureLogin.ensureLoggedIn(), controller.getE
 app.get('/workouts', connectEnsureLogin.ensureLoggedIn(), controller.getAllWorkouts);
 app.get('/workouts/:name', connectEnsureLogin.ensureLoggedIn(), controller.getWorkoutsByName);
 app.post('/userWorkouts', connectEnsureLogin.ensureLoggedIn(), controller.createUserWorkout);
+app.post('/exercises', connectEnsureLogin.ensureLoggedIn(), controller.createExercise);
 
 app.get('/api/authenticated', connectEnsureLogin.ensureLoggedIn(), (req, res) => {
   res.send('We are authenticated');
