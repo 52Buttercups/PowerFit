@@ -1,23 +1,23 @@
 const express = require('express');
 const logger = require('morgan');
 const bodyparser = require('body-parser');
+// Creates session cookies
 const expressSession = require('express-session')({
   secret: 'secret',
   resave: false,
   saveUninitialized: false,
 });
+// Authentication Framework - Passportjs
 const passport = require('passport');
+// Authenticate routes via: connectEnsureLogin.ensureLoggedIn()
 const connectEnsureLogin = require('connect-ensure-login');
+// Importing of the mongodb models
 const models = require('./database/index');
 
 const PORT = process.env.PORT || 5000;
 const app = express();
-
-const Users = models.User;
-const Workouts = models.Workout;
-const Exercises = models.Exercise;
-const MuscleGroups = models.MuscleGroup;
-const { Equipment } = models;
+// Destructured Models
+const {User, Workouts, Exercises, MuscleGroups, Equipment} = models;
 
 app.use(express.json());
 app.use(logger('dev'));
@@ -27,54 +27,34 @@ app.use(expressSession);
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(Users.createStrategy());
-passport.serializeUser(Users.serializeUser());
-passport.deserializeUser(Users.deserializeUser());
+// Selects local-strategy and configures it
+passport.use(User.createStrategy());
+// Serializes - Adds the session cookie
+passport.serializeUser(User.serializeUser());
+// Deserializes - Retrieves the user info
+passport.deserializeUser(User.deserializeUser());
 
-app.get('/', async (req, res) => {
+app.get('/api/authenticated', connectEnsureLogin.ensureLoggedIn(), (req, res) => {
+  res.send('We are authenticated');
+});
+
+app.get('/', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
   try {
+    console.log(req.session)
     res.status(200).json({ message: 'Hello from Buttercups Server' });
   } catch (err) {
     console.error(err);
   }
 });
 
-app.post('/login', (req, res, next) => {
-  passport.authenticate('local',
-    (err, user, info) => {
-      if (err) {
-        return next(err);
-      }
+// Modularized Routes
+const login = require('./routes/login');
+const register = require('./routes/register');
+const logout = require('./routes/logout');
 
-      if (!user) {
-        console.log(info);
-        return res.redirect(`/login?info=${info}`);
-      }
-
-      req.logIn(user, (error) => {
-        if (error) {
-          return next(error);
-        }
-
-        return res.redirect('/');
-      });
-    })(req, res, next);
-});
-
-app.get('/login', (req, res) => {
-  res.send('Welcome to the login page!');
-});
-
-app.post('/register', (req, res) => {
-  Users.register(new Users({ username: req.body.username }), req.body.password, (err, user) => {
-    if (err) {
-      return res.render('register', { user });
-    }
-    passport.authenticate('local')(req, res, () => {
-      res.redirect('/');
-    });
-  });
-});
+app.use('/login', login);
+app.use('/register', register);
+app.use('/logout', logout);
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 
