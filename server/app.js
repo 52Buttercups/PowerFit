@@ -18,11 +18,6 @@ const controller = require('./controllers');
 
 const PORT = process.env.PORT || 5000;
 const app = express();
-<<<<<<< HEAD
-// Destructured Models
-const {User, Workout, Exercise, MuscleGroup, Equipment} = models;
-=======
->>>>>>> 3bff2e050376a78cb5c8044ababf3c6baa4bd0b5
 
 app.use(express.json());
 app.use(logger('dev'));
