@@ -50,24 +50,27 @@ const getWorkoutsByName = (req, res) => {
     });
 };
 
-const createExercise = (req,res) => {
+const createExercise = (req, res) => {
+  const {
+    name, instructions, video, muscleGroups, equipment,
+  } = req.body;
   models.Exercises.create({
-    name: req.body.name,
-    instructions: req.body.instructions,
-    video: req.body.video,
+    name,
+    instructions,
+    video,
     muscleGroups: [{
-      name: req.body.muscleGroups,
+      name: muscleGroups,
     }],
     equipment: [{
-      name: req.body.equipment,
+      name: equipment,
     }],
   })
     .then(() => {
-      res.status(201).json({message: `Exercise: "${req.body.name}" has been created.`});
+      res.status(201).json({ message: `Exercise: "${req.body.name}" has been created.` });
     })
     .catch((error) => {
       console.log(error);
-      res.status(401).json({message: `Exercise: "${req.body.name}" has failed to be created.`});
+      res.status(401).json({ message: `Exercise: "${req.body.name}" has failed to be created.` });
     });
 };
 
