@@ -1,11 +1,13 @@
 import React, { createContext, useContext } from 'react';
 import axios from 'axios';
 import { UsersContext } from './UsersContext';
+import { WorkoutContext } from './WorkoutContext';
 
 export const APIContext = createContext({});
 
 const APIProvider = ({ children }) => {
   const { loggedInUser, setLoggedInUser } = useContext(UsersContext);
+  const { newWorkout } = useContext(WorkoutContext);
   const baseURL = 'http://localhost:5000';
   // http://localhost:5000/login POST
   // http://localhost:5000/register POST
@@ -64,6 +66,19 @@ const APIProvider = ({ children }) => {
     }
   };
 
+  /** ****************************************************************************
+  *                      API calls for workouts
+  ***************************************************************************** */
+
+  const addWorkout = async () => {
+    try {
+      const res = await axios.post('/workouts', newWorkout);
+      return res.data;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <APIContext.Provider
       value={{
@@ -71,6 +86,7 @@ const APIProvider = ({ children }) => {
         loginUser,
         getAllExercies,
         getAUsersWorkouts,
+        addWorkout,
       }}
     >
       {children}

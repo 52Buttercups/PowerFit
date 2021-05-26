@@ -8,7 +8,7 @@ import { APIContext } from '../../context/APIContext';
 const Builder = () => {
   const history = useHistory();
   const {
-    newWorkout, setNewWorkout, allExercises, setAllExercises,
+    newWorkout, setNewWorkout, allExercises, setAllExercises, setWorkoutToView,
   } = useContext(WorkoutContext);
   const { getAllExercies, addWorkout } = useContext(APIContext);
 
@@ -42,6 +42,8 @@ const Builder = () => {
   const createWorkout = async () => {
     try {
       const res = await addWorkout();
+      setWorkoutToView(res);
+      history.push('/viewer');
     } catch (err) {
       console.error(err);
     }
