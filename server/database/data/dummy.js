@@ -38,6 +38,7 @@ const userData = [
   {
     username: 'testUsername1',
     password: 'testPassword1',
+    favoriteWorkouts: ['testWorkout1'],
   },
   {
     username: 'testUsername2',
@@ -283,14 +284,9 @@ const insertDummyData = async () => {
     await Users.create(userData);
     await Workouts.create(workoutData);
     await Exercises.create(exerciseData);
-    // await UserWorkouts.create(userWorkoutData);
   } catch (err) {
     console.log(err);
   }
-  // db.User.create(userData)
-  //   .then(() => db.Exercise.create(exerciseData))
-  //   .then(() => db.Workout.create(workoutData))
-  //   .then(() => db.dbConnect.close());
 };
 
 insertDummyData();
