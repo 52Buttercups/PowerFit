@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
 
 const WorkoutViewer = ({ location }) => {
   const classes = useStyles();
-  // const [workout, setWorkout] = useState(location.state.workout);
   const { workoutToView } = useContext(WorkoutContext);
 
   return (

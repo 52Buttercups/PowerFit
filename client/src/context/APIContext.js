@@ -50,12 +50,27 @@ const APIProvider = ({ children }) => {
     }
   };
 
+  /** ****************************************************************************
+  *                      API calls for usersWorkouts
+  ***************************************************************************** */
+
+  // /userworkouts/:name
+  const getAUsersWorkouts = async () => {
+    try {
+      const res = await axios.get(`/workouts/${loggedInUser}`);
+      return res.data;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <APIContext.Provider
       value={{
         registerUser,
         loginUser,
         getAllExercies,
+        getAUsersWorkouts,
       }}
     >
       {children}
