@@ -21,6 +21,13 @@ const Builder = () => {
     }
   }, []);
 
+  const changeHandler = (e) => {
+    setNewWorkout({
+      ...newWorkout,
+      name: e.target.value,
+    });
+  };
+
   const removeExercise = (name) => {
     setNewWorkout({
       ...newWorkout,
@@ -41,6 +48,13 @@ const Builder = () => {
         </div>
         <div className={styles.workout}>
           <h3>My Workout</h3>
+          <input
+            onChange={changeHandler}
+            type="text"
+            placeholder="Workout Name"
+            name="name"
+            value={newWorkout.name}
+          />
           {newWorkout.exercises.length > 0
             && newWorkout.exercises.map((exercise, i) => (
               <div className={styles.workoutItem}>
