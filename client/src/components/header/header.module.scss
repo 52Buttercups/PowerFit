@@ -9,6 +9,13 @@
   color: $black;
 }
 
+.linksContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: auto;
+}
+
 .logo {
   font-size: 2rem;
   display: flex;
