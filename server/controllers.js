@@ -25,6 +25,30 @@ const getExercisesByName = (req, res) => {
     });
 };
 
+const createExercise = (req, res) => {
+  const {
+    name, instructions, video, muscleGroups, equipment,
+  } = req.body;
+  models.Exercises.create({
+    name,
+    instructions,
+    video,
+    muscleGroups: [{
+      name: muscleGroups,
+    }],
+    equipment: [{
+      name: equipment,
+    }],
+  })
+    .then(() => {
+      res.status(201).json({ message: `Exercise: "${req.body.name}" has been created.` });
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(401).json({ message: `Exercise: "${req.body.name}" has failed to be created.` });
+    });
+};
+
 /*
 * Workout Model
 */
@@ -47,30 +71,6 @@ const getWorkoutsByName = (req, res) => {
     .catch((err) => {
       console.error(err.message);
       res.send(400);
-    });
-};
-
-const createExercise = (req, res) => {
-  const {
-    name, instructions, video, muscleGroups, equipment,
-  } = req.body;
-  models.Exercises.create({
-    name,
-    instructions,
-    video,
-    muscleGroups: [{
-      name: muscleGroups,
-    }],
-    equipment: [{
-      name: equipment,
-    }],
-  })
-    .then(() => {
-      res.status(201).json({ message: `Exercise: "${req.body.name}" has been created.` });
-    })
-    .catch((error) => {
-      console.log(error);
-      res.status(401).json({ message: `Exercise: "${req.body.name}" has failed to be created.` });
     });
 };
 
