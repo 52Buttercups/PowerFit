@@ -10,7 +10,7 @@ const Builder = () => {
   const {
     newWorkout, setNewWorkout, allExercises, setAllExercises,
   } = useContext(WorkoutContext);
-  const { getAllExercies } = useContext(APIContext);
+  const { getAllExercies, addWorkout } = useContext(APIContext);
 
   useEffect(async () => {
     try {
@@ -38,6 +38,15 @@ const Builder = () => {
       ],
     });
   };
+
+  const createWorkout = async () => {
+    try {
+      const res = await addWorkout();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div className={styles.builderContainer}>
       <h2>Workout Builder</h2>
@@ -69,18 +78,9 @@ const Builder = () => {
             ))}
         </div>
       </div>
-      <Link
-        className={styles.beginButton}
-        to={{
-          pathname: '/viewer',
-          hash: `${newWorkout.name}`,
-          state: { newWorkout },
-        }}
-      >
-        <button>
-          Begin Workout
-        </button>
-      </Link>
+      <button onClick={createWorkout}>
+        Begin Workout
+      </button>
 
     </div>
   );

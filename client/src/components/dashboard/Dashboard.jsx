@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 // material ui
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 // components
 import BuilderCard from './BuilderCard';
+import { WorkoutContext } from '../../context/WorkoutContext';
 
 const userWorkouts = {
   id: 1,
@@ -97,8 +98,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Dashboard = () => {
+  const history = useHistory();
   const [workouts, setWorkouts] = useState(userWorkouts.favorites);
+  const { setWorkoutToView } = useContext(WorkoutContext);
   const styles = useStyles();
+
+  const viewWorkout = (workout) => {
+    setWorkoutToView(workout);
+    history.push('/viewer');
+  };
 
   return (
     <div className={styles.root}>
@@ -119,15 +127,16 @@ const Dashboard = () => {
               <Typography color="primary" className={styles.typography}>
                 {workout.name}
               </Typography>
-              <Link
+              {/* <Link
                 to={{
-                  pathname: '/viewer',
-                  hash: `${workout.name}`,
-                  state: { workout },
+                  // eslint-disable-next-line no-underscore-dangle
+                  pathname: `/viewer/${workout._id}`,
+                  // hash: `${workout.name}`,
+                  // state: { workout },
                 }}
-              >
-                <Button color="secondary">View</Button>
-              </Link>
+              > */}
+              <Button onClick={() => viewWorkout(workout)} color="secondary">View</Button>
+              {/* </Link> */}
             </div>
           ))}
 
