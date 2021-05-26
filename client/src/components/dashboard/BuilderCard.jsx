@@ -7,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { useHistory } from 'react-router-dom';
 
 // image
 import stockImg from '../../assets/boxed-water.jpg';
@@ -22,10 +23,11 @@ const useStyles = makeStyles({
 
 function BuilderCard() {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
     <Card className={classes.root}>
-      <CardActionArea>
+      <CardActionArea onClick={() => history.push('/builder')}>
         <CardMedia
           component="img"
           className={classes.media}

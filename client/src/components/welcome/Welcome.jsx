@@ -4,7 +4,7 @@ import SignUp from './SignUp';
 import Login from './Login';
 
 const Welcome = () => {
-  const [showSignup, setShowSignup] = useState(true);
+  const [showSignup, setShowSignup] = useState(false);
   return (
     <div className={styles.container}>
       <div className={styles.formContainer}>

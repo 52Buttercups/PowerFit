@@ -5,7 +5,7 @@
   padding: 2em;
   display: flex;
   flex-direction: column;
-  
+
   h2 {
     color: $secondary-color;
     font-family: $raleway;
@@ -30,7 +30,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  height: 80vh;
+  height: 75vh;
   padding: 2em 1em;
 }
 
@@ -55,7 +55,6 @@
 }
 
 .workout {
-  text-align: center;
   width: 40%;
   height: 100%;
 
@@ -63,13 +62,45 @@
     font-size: 1.7rem;
     color: $primary-color;
     font-family: $raleway;
-    margin-bottom: 2em;
+    margin-bottom: 1em;
+    text-align: center;
+  }
+
+  input {
+    background-color: $background-color;
+    color: $off-white;
+    font-size: 1.2rem;
+    padding: .2em .4em;
+    border-radius: 5px;
+    margin-bottom: 1em;
+    &:focus {
+      outline: none;
+    }
   }
 
   p {
     font-size: 1.2rem;
     color: $secondary-color;
     font-family: $open-sans;
+    text-transform: capitalize;
+  }
+
+
+}
+
+.workoutItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 70%;
+  margin: 0 auto 1em;
+
+  i {
+    color: $secondary-color;
   }
 }
 
+.beginButton {
+  margin-left: auto;
+}

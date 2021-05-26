@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const WorkoutViewer = ({ location }) => {
+  console.log(location);
   const classes = useStyles();
   const [workout, setWorkout] = useState(location.state.workout);
 

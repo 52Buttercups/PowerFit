@@ -14,7 +14,9 @@ export const Header = () => {
         <h2>PowerFit</h2>
         <i className="fas fa-dumbbell" />
       </div>
-      {(location.pathname === '/builder'
+
+      <div className={styles.linksContainer}>
+        {(location.pathname === '/builder'
        || location.pathname === '/viewer') && (
        <button
          onClick={() => {
@@ -24,8 +26,8 @@ export const Header = () => {
        >
          Dashboard
        </button>
-      )}
-      {loggedInUser
+        )}
+        {loggedInUser
       && (
       <button
         onClick={() => {
@@ -37,6 +39,9 @@ export const Header = () => {
         Logout
       </button>
       )}
+
+      </div>
+
     </div>
   );
 };
