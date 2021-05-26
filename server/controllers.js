@@ -91,8 +91,14 @@ const getAllUserWorkouts = (req, res) => {
 const getWorkoutsByUser = (req, res) => {
   models.UserWorkouts.find({ username: req.params.name })
     .then((results) => {
-* UserWorkouts Model
-*/
+      res.status(200).json(results);
+    })
+    .catch((err) => {
+      console.error(err.message);
+      res.send(400);
+    });
+};
+
 const createUserWorkout = (req, res) => {
   const userWorkout = req.body;
   models.UserWorkouts.create(userWorkout)
@@ -111,11 +117,8 @@ module.exports = {
   getExercisesByName,
   getAllWorkouts,
   getWorkoutsByName,
-<<<<<<< HEAD
   getAllUserWorkouts,
   getWorkoutsByUser,
-=======
   createUserWorkout,
->>>>>>> 5b80305915c33fec15464230a30934733b2c5d05
   createExercise,
 };
