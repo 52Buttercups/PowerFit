@@ -18,9 +18,9 @@ router.post('/', (req, res, next) => {
         return res.status(400).json({ message: 'Unable to login user!', loggedIn: false, error: `${info}` });
       }
       // Logs the user in and responds with session cookie
-      req.logIn(user, (err) => {
-        if (err) {
-          console.log9;
+      req.logIn(user, (error) => {
+        if (error) {
+          console.error(error);
         }
 
         res.status(201).json({ message: `${req.body.username} is now logged in.`, loggedIn: true, username: `${req.body.username}` });

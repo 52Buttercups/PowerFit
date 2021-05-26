@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const passportLocalMongoose = require('passport-local-mongoose');
+const schema = require('./models/schema');
 
 const mongoUri = 'mongodb://localhost/powerfit';
 
@@ -16,4 +18,16 @@ db
     console.log(err);
   });
 
-module.exports = db;
+schema.users.plugin(passportLocalMongoose);
+const Users = mongoose.model('User', schema.users);
+const Workouts = mongoose.model('Workout', schema.workouts);
+const Exercises = mongoose.model('Exercise', schema.exercises);
+const UserWorkouts = mongoose.model('UserWorkOuts', schema.userWorkouts);
+
+module.exports = {
+  db,
+  Users,
+  Exercises,
+  Workouts,
+  UserWorkouts,
+};

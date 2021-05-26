@@ -13,8 +13,7 @@ const passport = require('passport');
 const connectEnsureLogin = require('connect-ensure-login');
 // Importing of the mongodb models
 
-const { db } = require('./database/index');
-const { Users } = require('./database/models/schema');
+const { db, Users } = require('./database/index');
 const controller = require('./controllers');
 
 const PORT = process.env.PORT || 5000;
@@ -35,13 +34,11 @@ passport.serializeUser(Users.serializeUser());
 // Deserializes - Retrieves the user info
 passport.deserializeUser(Users.deserializeUser());
 
-app.get('/exercises', controller.getAllExercises);
-app.get('/exercises/:name', controller.getExercisesByName);
-app.get('/workouts', controller.getAllWorkouts);
-app.get('/workouts/:name', controller.getWorkoutsByName);
-app.use('/login', controller.loginUser);
-app.use('/register', controller.registerUser);
-app.use('/logout', controller.logoutUser);
+// Routes
+app.get('/exercises', connectEnsureLogin.ensureLoggedIn(), controller.getAllExercises);
+app.get('/exercises/:name', connectEnsureLogin.ensureLoggedIn(), controller.getExercisesByName);
+app.get('/workouts', connectEnsureLogin.ensureLoggedIn(), controller.getAllWorkouts);
+app.get('/workouts/:name', connectEnsureLogin.ensureLoggedIn(), controller.getWorkoutsByName);
 
 app.get('/api/authenticated', connectEnsureLogin.ensureLoggedIn(), (req, res) => {
   res.send('We are authenticated');
@@ -57,13 +54,13 @@ app.get('/', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 });
 
 // Modularized Routes
-// const login = require('./routes/login');
-// const register = require('./routes/register');
-// const logout = require('./routes/logout');
+const login = require('./routes/login');
+const register = require('./routes/register');
+const logout = require('./routes/logout');
 
-// app.use('/login', login);
-// app.use('/register', register);
-// app.use('/logout', logout);
+app.use('/login', login);
+app.use('/register', register);
+app.use('/logout', logout);
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 

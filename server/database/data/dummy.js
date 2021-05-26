@@ -29,7 +29,8 @@
   - name
 */
 
-const { Users, Workouts, Exercises } = require('../models/schema');
+const { Users, Workouts, Exercises } = require('../index');
+// const { db } = require('../index');
 
 const userData = [
   {
@@ -193,7 +194,7 @@ const exerciseData = [
     muscleGroups: [
       { name: 'legs' },
     ],
-    // equipment: [{ name: '' }],
+    equipment: [{ name: 'none' }],
   },
   {
     name: 'squats',
@@ -284,8 +285,8 @@ const insertDummyData = async () => {
     console.log(err);
   }
   // db.User.create(userData)
-  //   .then(() => db.Workout.create(workoutData))
   //   .then(() => db.Exercise.create(exerciseData))
+  //   .then(() => db.Workout.create(workoutData))
   //   .then(() => db.dbConnect.close());
 };
 
