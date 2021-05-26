@@ -10,6 +10,10 @@ const APIProvider = ({ children }) => {
   // http://localhost:5000/login POST
   // http://localhost:5000/register POST
 
+  /** ****************************************************************************
+  *                      API calls for user auth
+  ***************************************************************************** */
+
   const registerUser = async (data) => {
     try {
       const response = await axios.post('/register', data);
@@ -33,11 +37,25 @@ const APIProvider = ({ children }) => {
     }
   };
 
+  /** ****************************************************************************
+  *                      API calls for exercises
+  ***************************************************************************** */
+
+  const getAllExercies = async () => {
+    try {
+      const res = await axios.get('/exercises');
+      return res.data;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <APIContext.Provider
       value={{
         registerUser,
         loginUser,
+        getAllExercies,
       }}
     >
       {children}
