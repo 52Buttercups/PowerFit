@@ -34,11 +34,22 @@ passport.serializeUser(Users.serializeUser());
 // Deserializes - Retrieves the user info
 passport.deserializeUser(Users.deserializeUser());
 
-// Routes
+/** ***********************************************************
+*          All Routes
+************************************************************ */
+
+/** ***********************************************************
+*          Exercises Routes
+************************************************************ */
 app.get('/exercises', connectEnsureLogin.ensureLoggedIn(), controller.getAllExercises);
 app.get('/exercises/:name', connectEnsureLogin.ensureLoggedIn(), controller.getExercisesByName);
+
+/** ***********************************************************
+*          General Workouts Routes
+************************************************************ */
 app.get('/workouts', connectEnsureLogin.ensureLoggedIn(), controller.getAllWorkouts);
-app.get('/workouts/:name', connectEnsureLogin.ensureLoggedIn(), controller.getWorkoutsByName);
+app.get('/workouts/:name', connectEnsureLogin.ensureLoggedIn(), controller.getAllWorkoutsByName);
+app.post('/workouts', connectEnsureLogin.ensureLoggedIn(), controller.createWorkouts);
 
 app.get('/api/authenticated', connectEnsureLogin.ensureLoggedIn(), (req, res) => {
   res.send('We are authenticated');
@@ -53,7 +64,9 @@ app.get('/', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
   }
 });
 
-// Modularized Routes
+/** ***********************************************************
+*         Login and Auth Routes
+************************************************************ */
 const login = require('./routes/login');
 const register = require('./routes/register');
 const logout = require('./routes/logout');
