@@ -18,9 +18,17 @@ export const Exercise = ({ exercise }) => {
       <p>{exercise.name}</p>
       <div className={styles.tagContainer}>
         {exercise.muscleGroups.length > 0
-          && exercise.muscleGroups.map((tag, i) => (<p key={i}>{tag.name}</p>))}
+          && exercise.muscleGroups.map((tag, i) => {
+            if (tag.name !== 'none') {
+              return (<p key={i}>{tag.name}</p>);
+            }
+          })}
         {exercise.equipment.length > 0
-          && exercise.equipment.map((tag, i) => (<p key={i}>{tag.name}</p>))}
+          && exercise.equipment.map((tag, i) => {
+            if (tag.name !== 'none') {
+              return (<p key={i}>{tag.name}</p>);
+            }
+          })}
       </div>
     </div>
   );
