@@ -80,7 +80,7 @@ const Builder = () => {
             ))}
         </div>
       </div>
-      <button onClick={createWorkout}>
+      <button className={styles.beginButton} onClick={createWorkout}>
         Begin Workout
       </button>
 
