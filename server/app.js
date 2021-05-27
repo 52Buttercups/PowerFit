@@ -76,10 +76,12 @@ app.get('/', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 const login = require('./routes/login');
 const register = require('./routes/register');
 const logout = require('./routes/logout');
+const getLoggedInUser = require('./routes/getLoggedInUser');
 
 app.use('/login', login);
 app.use('/register', register);
 app.use('/logout', logout);
+app.use('/getLoggedInUser', getLoggedInUser);
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 
