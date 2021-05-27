@@ -108,6 +108,7 @@ const Dashboard = () => {
   useEffect(async () => {
     try {
       const data = await getAUsersWorkouts();
+      console.log({ data });
       if (data.favorites) {
         setWorkouts(data.favorites);
       } else {

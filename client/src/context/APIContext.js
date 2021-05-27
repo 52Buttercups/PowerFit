@@ -57,7 +57,7 @@ const APIProvider = ({ children }) => {
   // /userworkouts/:name
   const getAUsersWorkouts = async () => {
     try {
-      const res = await axios.get(`/workouts/${loggedInUser}`);
+      const res = await axios.get(`/userWorkouts/${loggedInUser}`);
       return res.data;
     } catch (err) {
       console.error(err);
@@ -70,10 +70,8 @@ const APIProvider = ({ children }) => {
       workoutId: id,
       isFavorite: true,
     };
-    console.log({ data });
     try {
       const res = await axios.put('/userWorkouts', data);
-      console.log(res.data);
       return res.data;
     } catch (err) {
       console.error(err);
