@@ -13,6 +13,7 @@ const passport = require('passport');
 const connectEnsureLogin = require('connect-ensure-login');
 // Importing of the mongodb models
 
+// eslint-disable-next-line no-unused-vars
 const { db, Users } = require('./database/index');
 const controller = require('./controllers');
 
