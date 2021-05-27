@@ -47,7 +47,7 @@ const WorkoutViewer = ({ location }) => {
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <Typography color="primary" variant="h4">
-            Workout Viewer
+            {workoutToView.name}
           </Typography>
           <div>
             {workoutToView.exercises.length > 0
