@@ -77,6 +77,15 @@ const APIProvider = ({ children }) => {
     }
   };
 
+  const getRandomWorkout = async () => {
+    try {
+      const workouts = await axios.get('/workouts');
+      return workouts.data[Math.floor(Math.random() * workouts.data.length)];
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <APIContext.Provider
       value={{
@@ -85,6 +94,7 @@ const APIProvider = ({ children }) => {
         getAllExercies,
         getAUsersWorkouts,
         addWorkout,
+        getRandomWorkout,
       }}
     >
       {children}

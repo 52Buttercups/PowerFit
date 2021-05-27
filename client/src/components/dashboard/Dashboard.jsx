@@ -95,7 +95,7 @@ const Dashboard = () => {
   const [favorites, setFavorites] = useState([]);
 
   const { setWorkoutToView } = useContext(WorkoutContext);
-  const { getAUsersWorkouts } = useContext(APIContext);
+  const { getAUsersWorkouts, getRandomWorkout } = useContext(APIContext);
   const styles = useStyles();
 
   const viewWorkout = (workout) => {
@@ -107,7 +107,10 @@ const Dashboard = () => {
     try {
       const data = await getAUsersWorkouts();
       if (data.favorites) {
-        setWorkouts([...workouts, ...data.favorites]);
+        setWorkouts(data.favorites);
+      } else {
+        const randomWorkout = await getRandomWorkout();
+        setWorkouts([randomWorkout]);
       }
     } catch (err) {
       console.error(err);
