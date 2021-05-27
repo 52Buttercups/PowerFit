@@ -106,7 +106,7 @@ const Dashboard = () => {
   useEffect(async () => {
     try {
       const data = await getAUsersWorkouts();
-      if (data) {
+      if (data.favorites) {
         setWorkouts([...workouts, ...data.favorites]);
       }
     } catch (err) {
@@ -149,8 +149,8 @@ const Dashboard = () => {
             }
             label="Show Only Favorites"
           />
-          {showFavorites && favorites.length > 0 && favorites.map((workout) => (
-            <div key={workout.id} className={styles.workout}>
+          {showFavorites && favorites.length > 0 && favorites.map((workout, idx) => (
+            <div key={idx} className={styles.workout}>
               <Typography color="primary" className={styles.typography}>
                 {workout.name}
               </Typography>
@@ -160,8 +160,8 @@ const Dashboard = () => {
             </div>
           ))}
 
-          {!showFavorites && workouts.length > 0 && workouts.map((workout) => (
-            <div key={workout.id} className={styles.workout}>
+          {!showFavorites && workouts.length > 0 && workouts.map((workout, idx) => (
+            <div key={idx} className={styles.workout}>
               <Typography color="primary" className={styles.typography}>
                 {workout.name}
               </Typography>
