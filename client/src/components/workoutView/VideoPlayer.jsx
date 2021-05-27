@@ -44,7 +44,7 @@ const YoutubePlayer = ({ workout }) => {
 
   // function that loops over exercise videos and parses video ids into a playlist url string
   const getPlaylistIds = () => {
-    let baseUrl = `https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=1&playlist=${defaultVideoId}`;
+    let baseUrl = `https://www.youtube.com/embed/${defaultVideoId}`;
     // if only one exercise then it is already added to the defaultid in the useEffect
     if (exercises.length <= 1) {
       return baseUrl;
