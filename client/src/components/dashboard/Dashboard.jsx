@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 // material ui
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -8,6 +8,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 // components
 import BuilderCard from './BuilderCard';
+import { WorkoutContext } from '../../context/WorkoutContext';
+import { APIContext } from '../../context/APIContext';
 
 const userWorkouts = {
   id: 1,
@@ -22,40 +24,6 @@ const userWorkouts = {
           name: 'Perfect pushups',
           instructions: 'Get down on the floor and push the earth away from yourself like Chuck Norris',
           video: 'https://www.youtube.com/watch?v=IODxDxX7oi4',
-          muscleGroups: [
-            {
-              id: 1,
-              name: 'bicep',
-            },
-            {
-              id: 2,
-              name: 'core',
-            },
-          ],
-          equipment: null,
-        },
-        {
-          id: 1,
-          name: 'pushups 2.0',
-          instructions: 'Get down on the floor and push the earth away from yourself like Chuck Norris',
-          video: null,
-          muscleGroups: [
-            {
-              id: 1,
-              name: 'bicep',
-            },
-            {
-              id: 2,
-              name: 'core',
-            },
-          ],
-          equipment: null,
-        },
-        {
-          id: 1,
-          name: 'Final Round pushups',
-          instructions: 'Get down on the floor and push the earth away from yourself like Chuck Norris',
-          video: '',
           muscleGroups: [
             {
               id: 1,
@@ -97,8 +65,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Dashboard = () => {
+  const history = useHistory();
   const [workouts, setWorkouts] = useState(userWorkouts.favorites);
+  const { setWorkoutToView } = useContext(WorkoutContext);
+  const { getAUsersWorkouts } = useContext(APIContext);
   const styles = useStyles();
+
+  const viewWorkout = (workout) => {
+    setWorkoutToView(workout);
+    history.push('/viewer');
+  };
+
+  useEffect(async () => {
+    try {
+      const data = await getAUsersWorkouts();
+      if (data) {
+        setWorkouts([...workouts, ...data.favorites]);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, []);
 
   return (
     <div className={styles.root}>
@@ -114,20 +101,21 @@ const Dashboard = () => {
             My workouts
           </Typography>
 
-          {workouts.map((workout) => (
+          {workouts.length > 0 && workouts.map((workout) => (
             <div key={workout.id} className={styles.workout}>
               <Typography color="primary" className={styles.typography}>
                 {workout.name}
               </Typography>
-              <Link
+              {/* <Link
                 to={{
-                  pathname: '/viewer',
-                  hash: `${workout.name}`,
-                  state: { workout },
+                  // eslint-disable-next-line no-underscore-dangle
+                  pathname: `/viewer/${workout._id}`,
+                  // hash: `${workout.name}`,
+                  // state: { workout },
                 }}
-              >
-                <Button color="secondary">View</Button>
-              </Link>
+              > */}
+              <Button onClick={() => viewWorkout(workout)} color="secondary">View</Button>
+              {/* </Link> */}
             </div>
           ))}
 
