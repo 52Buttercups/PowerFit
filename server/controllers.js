@@ -90,7 +90,7 @@ const createWorkouts = (req, res) => {
       res.status(201).json(results);
     })
     .catch((err) => {
-      console.err(err.message || err);
+      console.error(err.message || err);
     });
 };
 
