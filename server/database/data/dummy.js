@@ -138,10 +138,10 @@ const exerciseData = [
     name: 'air squats',
     instructions: 'Stand up with your feet shoulder-width apart. Bend your knees, press your hips back and stop the movement once the hip joint is slightly lower than the knees. Press your heels into the floor to return to the initial position. Repeat until set is complete. PROPER FORM AND BREATHING PATTERN.',
     video: 'https://www.youtube.com/watch?v=rMvwVtlqjTE&ab_channel=CrossFit%C2%AECrossFit%C2%AE',
-    muscleGroups: [
-      'legs',
-    ],
-    equipment: ['none'],
+    muscleGroups: [{
+      name: 'legs',
+    }],
+    equipment: [{ name: 'none' }],
   },
   {
     name: 'pushups',
