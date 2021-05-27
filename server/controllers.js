@@ -85,7 +85,9 @@ const createWorkouts = (req, res) => {
   * Creates a general workout in the workouts table.
   */
   const workout = req.body;
-  models.Workouts.create(workout)
+  models.Workouts.findOneAndUpdate(
+    { name: workout.name }, { exercises: workout.exercises }, { upsert: true, new: true },
+  )
     .then((results) => {
       res.status(201).json(results);
     })
