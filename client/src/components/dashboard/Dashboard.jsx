@@ -9,6 +9,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import { makeStyles } from '@material-ui/core/styles';
 
+// other
+import getYouTubeID from 'get-youtube-id';
+
 // components
 import BuilderCard from './BuilderCard';
 import { WorkoutContext } from '../../context/WorkoutContext';
@@ -93,8 +96,7 @@ const Dashboard = () => {
   const [workouts, setWorkouts] = useState(exampleWorkouts);
   const [showFavorites, setShowFavorites] = useState(false);
   const [favorites, setFavorites] = useState([]);
-
-  const { setWorkoutToView } = useContext(WorkoutContext);
+  const { setWorkoutToView, setFirstVideoId } = useContext(WorkoutContext);
   const { getAUsersWorkouts, getRandomWorkout } = useContext(APIContext);
   const styles = useStyles();
 
@@ -129,6 +131,7 @@ const Dashboard = () => {
       }
     });
     setFavorites(faves);
+    setFirstVideoId(getYouTubeID(workouts[0].exercises[0].video));
   }, [workouts]);
 
   const toggleFavorites = () => {
