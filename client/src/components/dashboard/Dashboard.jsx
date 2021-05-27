@@ -108,9 +108,9 @@ const Dashboard = () => {
   useEffect(async () => {
     try {
       const data = await getAUsersWorkouts();
-      console.log({ data });
-      if (data.favorites) {
-        setWorkouts(data.favorites);
+      console.log('from useEffect', data[0].workouts);
+      if (data && data[0].workouts && data[0].workouts) {
+        setWorkouts(data[0].workouts);
       } else {
         const randomWorkout = await getRandomWorkout();
         setWorkouts([randomWorkout]);
@@ -124,7 +124,7 @@ const Dashboard = () => {
     // initialize favorites
     const faves = [];
     workouts.forEach((workout) => {
-      if (workout.isFavorite === true) {
+      if (workout && workout.isFavorite === true) {
         faves.push(workout);
       }
     });
@@ -169,7 +169,7 @@ const Dashboard = () => {
           {!showFavorites && workouts.length > 0 && workouts.map((workout, idx) => (
             <div key={idx} className={styles.workout}>
               <Typography color="primary" className={styles.typography}>
-                {workout.name}
+                {workout && workout.name}
               </Typography>
 
               <Button onClick={() => viewWorkout(workout)} color="secondary">View</Button>
