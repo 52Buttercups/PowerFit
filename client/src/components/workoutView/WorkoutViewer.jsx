@@ -18,6 +18,7 @@ import stockImg from '../../assets/core-workout.jpg';
 import WorkoutInfo from './WorkoutInfo';
 import VideoPlayer from './VideoPlayer';
 import { WorkoutContext } from '../../context/WorkoutContext';
+import { APIContext } from '../../context/APIContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,19 +42,25 @@ const WorkoutViewer = ({ location }) => {
   const history = useHistory();
   const classes = useStyles();
   const { workoutToView, setNewWorkout } = useContext(WorkoutContext);
+  const { saveToFavorites } = useContext(APIContext);
+
+  const handleClick = () => {
+    const { _id } = workoutToView;
+    saveToFavorites(_id);
+  };
 
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <Typography color="primary" variant="h4">
-            Workout Viewer
+            {workoutToView.name}
           </Typography>
           <div>
             {workoutToView.exercises.length > 0
-            && workoutToView.exercises.map((exercise, i) => (
-              <WorkoutInfo key={i} exercise={exercise} />
-            ))}
+              && workoutToView.exercises.map((exercise, i) => (
+                <WorkoutInfo key={i} exercise={exercise} />
+              ))}
           </div>
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -69,8 +76,12 @@ const WorkoutViewer = ({ location }) => {
               >
                 Edit this workout
               </Button>
-              <Button>Mark as complete</Button>
-              <Button>Save to My Workouts</Button>
+              {/* <Button>Mark as complete</Button> */}
+              <Button
+                onClick={handleClick}
+              >
+                Save To My Favorites
+              </Button>
             </CardActions>
           </Card>
         </Grid>

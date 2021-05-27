@@ -56,8 +56,26 @@ const APIProvider = ({ children }) => {
 
   // /userworkouts/:name
   const getAUsersWorkouts = async () => {
+    console.log('get a users workouts with user: ', localStorage.getItem('user'));
     try {
-      const res = await axios.get(`/workouts/${loggedInUser}`);
+      const res = await axios.get(`/userWorkouts/${localStorage.getItem('user')}`);
+      console.log('get a users workouts response ', res);
+      return res.data;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const saveToFavorites = async (id) => {
+    const data = {
+      username: localStorage.getItem('user'),
+      workoutId: id,
+      isFavorite: true,
+    };
+    console.log('saveToFavorites data', data);
+    try {
+      const res = await axios.put('/userWorkouts', data);
+      console.log('saveToFavorites res', res.data);
       return res.data;
     } catch (err) {
       console.error(err);
@@ -95,6 +113,7 @@ const APIProvider = ({ children }) => {
         getAUsersWorkouts,
         addWorkout,
         getRandomWorkout,
+        saveToFavorites,
       }}
     >
       {children}

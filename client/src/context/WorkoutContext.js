@@ -5,6 +5,7 @@ export const WorkoutContext = createContext({});
 const WorkoutProvider = ({ children }) => {
   const [allExercises, setAllExercises] = useState([]);
   const [workoutToView, setWorkoutToView] = useState({});
+  const [firstVideoId, setFirstVideoId] = useState();
   const [newWorkout, setNewWorkout] = useState({
     name: '',
     exercises: [],
@@ -19,6 +20,8 @@ const WorkoutProvider = ({ children }) => {
         setAllExercises,
         workoutToView,
         setWorkoutToView,
+        setFirstVideoId,
+        firstVideoId,
       }}
     >
       {children}

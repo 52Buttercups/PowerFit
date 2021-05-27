@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import getYouTubeID from 'get-youtube-id';
+
+import { WorkoutContext } from '../../context/WorkoutContext';
 
 const YoutubePlayer = ({ workout }) => {
   const { exercises } = workout;
   const [defaultVideoId, setDefaultVideoId] = useState('');
   const [playlist, setPlaylist] = useState('');
+
+  const { firstVideoId } = useContext(WorkoutContext);
 
   // configuration obj
   const opts = {
@@ -32,11 +36,11 @@ const YoutubePlayer = ({ workout }) => {
       }
       // getYouTubeID with fuzzy false returns only strict id matches
       // this will verify the video url has a valid id
-      const firstVideoId = getYouTubeID(firstVideo, { fuzzy: false });
+      const first = getYouTubeID(firstVideo, { fuzzy: false });
 
       // if there is a valid id reassign id
-      if (firstVideoId !== null) {
-        id = firstVideoId;
+      if (first !== null) {
+        id = first;
       }
     }
     return id;
@@ -44,7 +48,7 @@ const YoutubePlayer = ({ workout }) => {
 
   // function that loops over exercise videos and parses video ids into a playlist url string
   const getPlaylistIds = () => {
-    let baseUrl = `https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=1&playlist=${defaultVideoId}`;
+    let baseUrl = `https://www.youtube.com/embed/${firstVideoId}`;
     // if only one exercise then it is already added to the defaultid in the useEffect
     if (exercises.length <= 1) {
       return baseUrl;
@@ -77,7 +81,8 @@ const YoutubePlayer = ({ workout }) => {
 
   return (
     <div className="youtube-wrapper">
-      <p>Some exercises may not have videos, please enjoy the music instead!</p>
+      <p>Your video playlist. If an exercise does not have a video, enjoy the music instead!</p>
+      {firstVideoId && (
       <iframe
         title="ytplayer"
         id="ytplayer"
@@ -87,6 +92,7 @@ const YoutubePlayer = ({ workout }) => {
         src={playlist}
         frameBorder="0"
       />
+      )}
     </div>
   );
 };
