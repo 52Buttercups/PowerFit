@@ -4,7 +4,7 @@ import SignUp from './SignUp';
 import Login from './Login';
 
 const Welcome = () => {
-  const [showSignup, setShowSignup] = useState(true);
+  const [showSignup, setShowSignup] = useState(false);
   return (
     <div className={styles.container}>
       <div className={styles.formContainer}>
@@ -13,7 +13,10 @@ const Welcome = () => {
       </div>
       <div className={styles.heroText}>
         <h2>Signup or Login to Start Working Out</h2>
-        <p>Some text here</p>
+        <p>
+          A smarter fitness application that allows
+          users to spend more time working out and less time finding a workout.
+        </p>
       </div>
     </div>
   );

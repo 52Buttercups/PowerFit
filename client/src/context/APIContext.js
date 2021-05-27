@@ -1,14 +1,20 @@
 import React, { createContext, useContext } from 'react';
 import axios from 'axios';
 import { UsersContext } from './UsersContext';
+import { WorkoutContext } from './WorkoutContext';
 
 export const APIContext = createContext({});
 
 const APIProvider = ({ children }) => {
   const { loggedInUser, setLoggedInUser } = useContext(UsersContext);
+  const { newWorkout } = useContext(WorkoutContext);
   const baseURL = 'http://localhost:5000';
   // http://localhost:5000/login POST
   // http://localhost:5000/register POST
+
+  /** ****************************************************************************
+  *                      API calls for user auth
+  ***************************************************************************** */
 
   const registerUser = async (data) => {
     try {
@@ -33,11 +39,54 @@ const APIProvider = ({ children }) => {
     }
   };
 
+  /** ****************************************************************************
+  *                      API calls for exercises
+  ***************************************************************************** */
+
+  const getAllExercies = async () => {
+    try {
+      const res = await axios.get('/exercises');
+      return res.data;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  /** ****************************************************************************
+  *                      API calls for usersWorkouts
+  ***************************************************************************** */
+
+  // /userworkouts/:name
+  const getAUsersWorkouts = async () => {
+    try {
+      const res = await axios.get(`/workouts/${loggedInUser}`);
+      return res.data;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  /** ****************************************************************************
+  *                      API calls for workouts
+  ***************************************************************************** */
+
+  const addWorkout = async () => {
+    try {
+      const res = await axios.post('/workouts', newWorkout);
+      return res.data;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <APIContext.Provider
       value={{
         registerUser,
         loginUser,
+        getAllExercies,
+        getAUsersWorkouts,
+        addWorkout,
       }}
     >
       {children}

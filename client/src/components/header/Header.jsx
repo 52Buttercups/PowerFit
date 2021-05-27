@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import styles from './header.module.scss';
 import { UsersContext } from '../../context/UsersContext';
 
 export const Header = () => {
   const history = useHistory();
+  const location = useLocation();
   const { setLoggedInUser, loggedInUser } = useContext(UsersContext);
   return (
     <div className={styles.headerContainer}>
@@ -13,7 +14,20 @@ export const Header = () => {
         <h2>PowerFit</h2>
         <i className="fas fa-dumbbell" />
       </div>
-      {loggedInUser
+
+      <div className={styles.linksContainer}>
+        {(location.pathname === '/builder'
+       || location.pathname === '/viewer') && (
+       <button
+         onClick={() => {
+           history.push('/dashboard');
+         }}
+         className={styles.textButton}
+       >
+         Dashboard
+       </button>
+        )}
+        {loggedInUser
       && (
       <button
         onClick={() => {
@@ -25,6 +39,9 @@ export const Header = () => {
         Logout
       </button>
       )}
+
+      </div>
+
     </div>
   );
 };

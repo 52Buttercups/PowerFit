@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 // material ui
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -11,10 +11,13 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
+import { useHistory } from 'react-router-dom';
 import stockImg from '../../assets/core-workout.jpg';
 
 // components
 import WorkoutInfo from './WorkoutInfo';
+import VideoPlayer from './VideoPlayer';
+import { WorkoutContext } from '../../context/WorkoutContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,7 +38,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const WorkoutViewer = ({ location }) => {
+  const history = useHistory();
   const classes = useStyles();
+  const { workoutToView, setNewWorkout } = useContext(WorkoutContext);
 
   return (
     <div className={classes.root}>
@@ -45,7 +50,8 @@ const WorkoutViewer = ({ location }) => {
             Workout Viewer
           </Typography>
           <div>
-            {location.state.workout.exercises.map((exercise, i) => (
+            {workoutToView.exercises.length > 0
+            && workoutToView.exercises.map((exercise, i) => (
               <WorkoutInfo key={i} exercise={exercise} />
             ))}
           </div>
@@ -53,15 +59,16 @@ const WorkoutViewer = ({ location }) => {
         <Grid item xs={12} sm={6}>
           <Card className={classes.root}>
             <CardActionArea>
-              <CardMedia
-                component="img"
-                className={classes.media}
-                image={stockImg}
-                title="Contemplative Reptile"
-              />
+              <VideoPlayer workout={workoutToView} />
             </CardActionArea>
             <CardActions className={classes.content}>
-              <Button>Edit this workout</Button>
+              <Button onClick={() => {
+                setNewWorkout(workoutToView);
+                history.push('/builder');
+              }}
+              >
+                Edit this workout
+              </Button>
               <Button>Mark as complete</Button>
               <Button>Save to My Workouts</Button>
             </CardActions>

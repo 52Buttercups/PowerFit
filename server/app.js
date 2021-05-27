@@ -12,12 +12,12 @@ const passport = require('passport');
 // Authenticate routes via: connectEnsureLogin.ensureLoggedIn()
 const connectEnsureLogin = require('connect-ensure-login');
 // Importing of the mongodb models
-const models = require('./database/index');
+
+const { db, Users } = require('./database/index');
+const controller = require('./controllers');
 
 const PORT = process.env.PORT || 5000;
 const app = express();
-// Destructured Models
-const {User, Workouts, Exercises, MuscleGroups, Equipment} = models;
 
 app.use(express.json());
 app.use(logger('dev'));
@@ -28,11 +28,32 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Selects local-strategy and configures it
-passport.use(User.createStrategy());
+passport.use(Users.createStrategy());
 // Serializes - Adds the session cookie
-passport.serializeUser(User.serializeUser());
+passport.serializeUser(Users.serializeUser());
 // Deserializes - Retrieves the user info
-passport.deserializeUser(User.deserializeUser());
+passport.deserializeUser(Users.deserializeUser());
+
+/** ***********************************************************
+*          Exercises Routes
+************************************************************ */
+app.get('/exercises', connectEnsureLogin.ensureLoggedIn(), controller.getAllExercises);
+app.get('/exercises/:name', connectEnsureLogin.ensureLoggedIn(), controller.getExercisesByName);
+app.post('/exercises', connectEnsureLogin.ensureLoggedIn(), controller.createExercise);
+
+/** ***********************************************************
+*          General Workouts Routes
+************************************************************ */
+app.get('/workouts', connectEnsureLogin.ensureLoggedIn(), controller.getAllWorkouts);
+app.get('/workouts/:name', connectEnsureLogin.ensureLoggedIn(), controller.getAllWorkoutsByName);
+app.post('/workouts', connectEnsureLogin.ensureLoggedIn(), controller.createWorkouts);
+
+/** ***********************************************************
+*          User Workouts Routes
+************************************************************ */
+app.get('/userworkouts', connectEnsureLogin.ensureLoggedIn(), controller.getAllUserWorkouts);
+app.get('/userworkouts/:name', connectEnsureLogin.ensureLoggedIn(), controller.getWorkoutsByUser);
+app.post('/userWorkouts', connectEnsureLogin.ensureLoggedIn(), controller.createUserWorkout);
 
 app.get('/api/authenticated', connectEnsureLogin.ensureLoggedIn(), (req, res) => {
   res.send('We are authenticated');
@@ -40,14 +61,16 @@ app.get('/api/authenticated', connectEnsureLogin.ensureLoggedIn(), (req, res) =>
 
 app.get('/', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
   try {
-    console.log(req.session)
+    console.log(req.session);
     res.status(200).json({ message: 'Hello from Buttercups Server' });
   } catch (err) {
     console.error(err);
   }
 });
 
-// Modularized Routes
+/** ***********************************************************
+*         Login and Auth Routes
+************************************************************ */
 const login = require('./routes/login');
 const register = require('./routes/register');
 const logout = require('./routes/logout');
