@@ -14,58 +14,56 @@ import BuilderCard from './BuilderCard';
 import { WorkoutContext } from '../../context/WorkoutContext';
 import { APIContext } from '../../context/APIContext';
 
-// const exampleWorkouts = [
-//   {
-//     id: 1,
-//     name: 'Arm Day',
-//     isFavorite: false,
-//     exercises: [
-//       {
-//         id: 1,
-//         name: 'Perfect pushups',
-//         instructions:
-// 'Get down on the floor and push the earth away from yourself like Chuck Norris',
-//         video: 'https://www.youtube.com/watch?v=IODxDxX7oi4',
-//         muscleGroups: [
-//           {
-//             id: 1,
-//             name: 'bicep',
-//           },
-//           {
-//             id: 2,
-//             name: 'core',
-//           },
-//         ],
-//         equipment: null,
-//       },
-//     ],
-//   },
-//   {
-//     id: 1,
-//     name: 'Leg Day',
-//     isFavorite: true,
-//     exercises: [
-//       {
-//         id: 1,
-//         name: 'Perfect pushups',
-//         instructions:
-// 'Get down on the floor and push the earth away from yourself like Chuck Norris',
-//         video: 'https://www.youtube.com/watch?v=IODxDxX7oi4',
-//         muscleGroups: [
-//           {
-//             id: 1,
-//             name: 'bicep',
-//           },
-//           {
-//             id: 2,
-//             name: 'core',
-//           },
-//         ],
-//         equipment: null,
-//       },
-//     ],
-//   },
-// ];
+const exampleWorkouts = [
+  {
+    id: 1,
+    name: 'Arm Day',
+    isFavorite: false,
+    exercises: [
+      {
+        id: 1,
+        name: 'Perfect pushups',
+        instructions: 'Get down on the floor and push the earth away from yourself like Chuck Norris',
+        video: 'https://www.youtube.com/watch?v=IODxDxX7oi4',
+        muscleGroups: [
+          {
+            id: 1,
+            name: 'bicep',
+          },
+          {
+            id: 2,
+            name: 'core',
+          },
+        ],
+        equipment: null,
+      },
+    ],
+  },
+  {
+    id: 1,
+    name: 'Leg Day',
+    isFavorite: true,
+    exercises: [
+      {
+        id: 1,
+        name: 'Perfect pushups',
+        instructions: 'Get down on the floor and push the earth away from yourself like Chuck Norris',
+        video: 'https://www.youtube.com/watch?v=IODxDxX7oi4',
+        muscleGroups: [
+          {
+            id: 1,
+            name: 'bicep',
+          },
+          {
+            id: 2,
+            name: 'core',
+          },
+        ],
+        equipment: null,
+      },
+    ],
+  },
+];
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -92,7 +90,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Dashboard = () => {
   const history = useHistory();
-  const [workouts, setWorkouts] = useState([]);
+  const [workouts, setWorkouts] = useState(exampleWorkouts);
   const [showFavorites, setShowFavorites] = useState(false);
   const [favorites, setFavorites] = useState([]);
 
@@ -105,6 +103,8 @@ const Dashboard = () => {
     history.push('/viewer');
   };
 
+  // this will try to get a users workouts
+  // and if none will choose a random workout from db for initial dashboard
   useEffect(async () => {
     try {
       const data = await getAUsersWorkouts();
