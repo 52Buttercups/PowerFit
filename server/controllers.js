@@ -120,16 +120,17 @@ const getWorkoutsByUser = (req, res) => {
 };
 
 const createUserWorkout = (req, res) => {
-  const userWorkout = req.body;
-  models.UserWorkouts.create(userWorkout)
-    .then((results) => {
-      console.log(results);
-      res.status(200).json(results);
-    })
-    .catch((err) => {
-      console.error(err.message);
-      res.send(400);
-    });
+  const username = req.body.username;
+  const workouts = req.body.workouts;
+  models.UserWorkouts.findOneAndUpdate({ username }, { $push: { workouts }})
+  .then((results) => {
+    console.log(results);
+    res.status(200).json(results);
+  })
+  .catch((err) => {
+    console.error(err.message);
+    res.send(400);
+  });
 };
 
 const addFavoriteWorkout = (req, res) => {
