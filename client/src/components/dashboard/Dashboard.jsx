@@ -95,7 +95,7 @@ const Dashboard = () => {
   const [favorites, setFavorites] = useState([]);
 
   const { setWorkoutToView } = useContext(WorkoutContext);
-  const { getAUsersWorkouts } = useContext(APIContext);
+  const { getAUsersWorkouts, getRandomWorkout } = useContext(APIContext);
   const styles = useStyles();
 
   const viewWorkout = (workout) => {
@@ -103,11 +103,16 @@ const Dashboard = () => {
     history.push('/viewer');
   };
 
+  // this will try to get a users workouts
+  // and if none will choose a random workout from db for initial dashboard
   useEffect(async () => {
     try {
       const data = await getAUsersWorkouts();
-      if (data) {
-        setWorkouts([...workouts, ...data.favorites]);
+      if (data.favorites) {
+        setWorkouts(data.favorites);
+      } else {
+        const randomWorkout = await getRandomWorkout();
+        setWorkouts([randomWorkout]);
       }
     } catch (err) {
       console.error(err);
@@ -149,8 +154,8 @@ const Dashboard = () => {
             }
             label="Show Only Favorites"
           />
-          {showFavorites && favorites.length > 0 && favorites.map((workout) => (
-            <div key={workout.id} className={styles.workout}>
+          {showFavorites && favorites.length > 0 && favorites.map((workout, idx) => (
+            <div key={idx} className={styles.workout}>
               <Typography color="primary" className={styles.typography}>
                 {workout.name}
               </Typography>
@@ -160,8 +165,8 @@ const Dashboard = () => {
             </div>
           ))}
 
-          {!showFavorites && workouts.length > 0 && workouts.map((workout) => (
-            <div key={workout.id} className={styles.workout}>
+          {!showFavorites && workouts.length > 0 && workouts.map((workout, idx) => (
+            <div key={idx} className={styles.workout}>
               <Typography color="primary" className={styles.typography}>
                 {workout.name}
               </Typography>

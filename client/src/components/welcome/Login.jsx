@@ -2,10 +2,11 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import styles from './login.module.scss';
 import { APIContext } from '../../context/APIContext';
+import { UsersContext } from '../../context/UsersContext';
 
 const Login = ({ setShowSignup }) => {
   const history = useHistory();
-
+  const { loggedInUser, setLoggedInUser } = useContext(UsersContext);
   const { loginUser } = useContext(APIContext);
   const [formData, setFormData] = useState({
     username: '',
@@ -25,7 +26,10 @@ const Login = ({ setShowSignup }) => {
     try {
       const res = await loginUser(formData);
       if (res) {
-        history.push('/dashboard');
+        setLoggedInUser(res);
+        setTimeout(() => {
+          history.push('/dashboard');
+        }, 500);
       }
     } catch (err) {
       console.error(err);

@@ -6,7 +6,7 @@ import { WorkoutContext } from './WorkoutContext';
 export const APIContext = createContext({});
 
 const APIProvider = ({ children }) => {
-  const { loggedInUser, setLoggedInUser } = useContext(UsersContext);
+  const { loggedInUser } = useContext(UsersContext);
   const { newWorkout } = useContext(WorkoutContext);
   const baseURL = 'http://localhost:5000';
   // http://localhost:5000/login POST
@@ -20,8 +20,7 @@ const APIProvider = ({ children }) => {
     try {
       const response = await axios.post('/register', data);
       if (response.data.username) {
-        setLoggedInUser(response.data.username);
-        return true;
+        return response.data.username;
       }
     } catch (err) {
       console.error(err);
@@ -31,8 +30,7 @@ const APIProvider = ({ children }) => {
     try {
       const response = await axios.post('/login', data);
       if (response.data.username) {
-        setLoggedInUser(response.data.username);
-        return true;
+        return response.data.username;
       }
     } catch (err) {
       console.error(err);
@@ -79,6 +77,15 @@ const APIProvider = ({ children }) => {
     }
   };
 
+  const getRandomWorkout = async () => {
+    try {
+      const workouts = await axios.get('/workouts');
+      return workouts.data[Math.floor(Math.random() * workouts.data.length)];
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <APIContext.Provider
       value={{
@@ -87,6 +94,7 @@ const APIProvider = ({ children }) => {
         getAllExercies,
         getAUsersWorkouts,
         addWorkout,
+        getRandomWorkout,
       }}
     >
       {children}
