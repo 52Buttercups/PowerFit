@@ -25,6 +25,16 @@ const theme = createMuiTheme({
       main: '#FF681E',
     },
   },
+  overrides: {
+    // Style sheet name ⚛️
+    MuiFormControlLabel: {
+      // Name of the rule
+      label: {
+        // Some CSS
+        color: '#f9f9ed',
+      },
+    },
+  },
 });
 
 function App() {
