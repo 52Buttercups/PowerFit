@@ -132,6 +132,18 @@ const createUserWorkout = (req, res) => {
     });
 };
 
+const addFavoriteWorkout = (req, res) => {
+  const { username, workoutId, isFavorite } = req.body;
+  models.UserWorkouts.update({ 'workouts._id': workoutId, 'username': username }, { $set: { 'workouts.$.isFavorite': isFavorite }})
+    .then((results) => {
+      res.status(200).json(results);
+    })
+    .catch((err) => {
+      console.error(err.message);
+      res.send(400);
+    });
+};
+
 module.exports = {
   getAllExercises,
   getExercisesByName,
@@ -142,4 +154,5 @@ module.exports = {
   createUserWorkout,
   createExercise,
   createWorkouts,
+  addFavoriteWorkout,
 };
