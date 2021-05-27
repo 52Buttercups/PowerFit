@@ -27,6 +27,7 @@ const Login = ({ setShowSignup }) => {
       const res = await loginUser(formData);
       if (res) {
         setLoggedInUser(res);
+        localStorage.setItem('user', res);
         setTimeout(() => {
           history.push('/dashboard');
         }, 500);

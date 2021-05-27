@@ -56,9 +56,9 @@ const APIProvider = ({ children }) => {
 
   // /userworkouts/:name
   const getAUsersWorkouts = async () => {
-    console.log('get a users workouts with user: ', loggedInUser);
+    console.log('get a users workouts with user: ', localStorage.getItem('user'));
     try {
-      const res = await axios.get(`/userWorkouts/${loggedInUser}`);
+      const res = await axios.get(`/userWorkouts/${localStorage.getItem('user')}`);
       console.log('get a users workouts response ', res);
       return res.data;
     } catch (err) {
@@ -68,7 +68,7 @@ const APIProvider = ({ children }) => {
 
   const saveToFavorites = async (id) => {
     const data = {
-      username: loggedInUser,
+      username: localStorage.getItem('user'),
       workoutId: id,
       isFavorite: true,
     };
