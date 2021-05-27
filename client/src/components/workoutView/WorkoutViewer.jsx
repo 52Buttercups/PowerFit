@@ -43,7 +43,7 @@ const WorkoutViewer = ({ location }) => {
   const classes = useStyles();
   const { workoutToView, setNewWorkout } = useContext(WorkoutContext);
   const { saveToFavorites } = useContext(APIContext);
-
+  console.log(workoutToView);
   const handleClick = () => {
     const { _id } = workoutToView;
     saveToFavorites(_id);

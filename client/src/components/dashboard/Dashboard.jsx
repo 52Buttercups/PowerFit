@@ -96,7 +96,7 @@ const Dashboard = () => {
   const [workouts, setWorkouts] = useState(exampleWorkouts);
   const [showFavorites, setShowFavorites] = useState(false);
   const [favorites, setFavorites] = useState([]);
-  const { setWorkoutToView, setFirstVideoId } = useContext(WorkoutContext);
+  const { setWorkoutToView } = useContext(WorkoutContext);
   const { getAUsersWorkouts, getRandomWorkout } = useContext(APIContext);
   const styles = useStyles();
 
@@ -110,8 +110,8 @@ const Dashboard = () => {
   useEffect(async () => {
     try {
       const data = await getAUsersWorkouts();
-      console.log('from useEffect', data[0].workouts);
-      if (data && data[0].workouts && data[0].workouts) {
+
+      if (data.length > 0 && data[0].workouts) {
         setWorkouts(data[0].workouts);
       } else {
         const randomWorkout = await getRandomWorkout();
@@ -131,7 +131,6 @@ const Dashboard = () => {
       }
     });
     setFavorites(faves);
-    setFirstVideoId(getYouTubeID(workouts[0].exercises[0].video));
   }, [workouts]);
 
   const toggleFavorites = () => {
