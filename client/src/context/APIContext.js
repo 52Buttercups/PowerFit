@@ -64,6 +64,22 @@ const APIProvider = ({ children }) => {
     }
   };
 
+  const saveToFavorites = async (id) => {
+    const data = {
+      username: loggedInUser,
+      workoutId: id,
+      isFavorite: true,
+    };
+    console.log({ data });
+    try {
+      const res = await axios.put('/userWorkouts', data);
+      console.log(res.data);
+      return res.data;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   /** ****************************************************************************
   *                      API calls for workouts
   ***************************************************************************** */
@@ -95,6 +111,7 @@ const APIProvider = ({ children }) => {
         getAUsersWorkouts,
         addWorkout,
         getRandomWorkout,
+        saveToFavorites,
       }}
     >
       {children}
