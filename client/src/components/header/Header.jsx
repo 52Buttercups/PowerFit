@@ -27,18 +27,17 @@ export const Header = () => {
          Dashboard
        </button>
         )}
-        {loggedInUser
-      && (
-      <button
-        onClick={() => {
-          setLoggedInUser(null);
-          history.push('/');
-        }}
-        className={styles.textButton}
-      >
-        Logout
-      </button>
-      )}
+        {localStorage.getItem('user') && (
+        <button
+          onClick={() => {
+            localStorage.clear();
+            history.push('/');
+          }}
+          className={styles.textButton}
+        >
+          Logout
+        </button>
+        )}
 
       </div>
 
