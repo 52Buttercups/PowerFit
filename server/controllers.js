@@ -120,22 +120,22 @@ const getWorkoutsByUser = (req, res) => {
 };
 
 const createUserWorkout = (req, res) => {
-  const username = req.body.username;
-  const workouts = req.body.workouts;
-  models.UserWorkouts.findOneAndUpdate({ username }, { $push: { workouts }})
-  .then((results) => {
-    console.log(results);
-    res.status(200).json(results);
-  })
-  .catch((err) => {
-    console.error(err.message);
-    res.send(400);
-  });
+  const { username } = req.body;
+  const { workouts } = req.body;
+  models.UserWorkouts.findOneAndUpdate({ username }, { $push: { workouts } })
+    .then((results) => {
+      console.log(results);
+      res.status(200).json(results);
+    })
+    .catch((err) => {
+      console.error(err.message);
+      res.send(400);
+    });
 };
 
 const addFavoriteWorkout = (req, res) => {
   const { username, workoutId, isFavorite } = req.body;
-  models.UserWorkouts.update({ 'workouts._id': workoutId, 'username': username }, { $set: { 'workouts.$.isFavorite': isFavorite }})
+  models.UserWorkouts.update({ 'workouts._id': workoutId, username }, { $set: { 'workouts.$.isFavorite': isFavorite } })
     .then((results) => {
       res.status(200).json(results);
     })
