@@ -90,7 +90,7 @@ const createWorkouts = (req, res) => {
       res.status(201).json(results);
     })
     .catch((err) => {
-      console.err(err.message || err);
+      console.error(err.message || err);
     });
 };
 
@@ -120,10 +120,23 @@ const getWorkoutsByUser = (req, res) => {
 };
 
 const createUserWorkout = (req, res) => {
-  const userWorkout = req.body;
-  models.UserWorkouts.create(userWorkout)
+  const { username } = req.body;
+  const { workouts } = req.body;
+  models.UserWorkouts.findOneAndUpdate({ username }, { $push: { workouts } })
     .then((results) => {
       console.log(results);
+      res.status(200).json(results);
+    })
+    .catch((err) => {
+      console.error(err.message);
+      res.send(400);
+    });
+};
+
+const addFavoriteWorkout = (req, res) => {
+  const { username, workoutId, isFavorite } = req.body;
+  models.UserWorkouts.update({ 'workouts._id': workoutId, username }, { $set: { 'workouts.$.isFavorite': isFavorite } })
+    .then((results) => {
       res.status(200).json(results);
     })
     .catch((err) => {
@@ -142,4 +155,5 @@ module.exports = {
   createUserWorkout,
   createExercise,
   createWorkouts,
+  addFavoriteWorkout,
 };

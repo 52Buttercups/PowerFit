@@ -55,6 +55,7 @@ app.post('/workouts', connectEnsureLogin.ensureLoggedIn(), controller.createWork
 app.get('/userworkouts', connectEnsureLogin.ensureLoggedIn(), controller.getAllUserWorkouts);
 app.get('/userworkouts/:name', connectEnsureLogin.ensureLoggedIn(), controller.getWorkoutsByUser);
 app.post('/userWorkouts', connectEnsureLogin.ensureLoggedIn(), controller.createUserWorkout);
+app.put('/userWorkouts', connectEnsureLogin.ensureLoggedIn(), controller.addFavoriteWorkout);
 
 app.get('/api/authenticated', connectEnsureLogin.ensureLoggedIn(), (req, res) => {
   res.send('We are authenticated');
