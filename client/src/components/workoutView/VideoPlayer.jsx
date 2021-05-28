@@ -1,12 +1,25 @@
 import React, { useState, useEffect } from 'react';
 
 import getYouTubeID from 'get-youtube-id';
+import { makeStyles } from '@material-ui/core/styles';
 
 const DEFAULTVIDEOID = 'eM35NJRr8-I';
+
+const useStyles = makeStyles((theme) => ({
+  media: {
+    width: '640px',
+    height: '360px',
+    [theme.breakpoints.down('xs')]: {
+      width: '300px',
+      height: '150px',
+    },
+  },
+}));
 
 const YoutubePlayer = ({ workout }) => {
   const { exercises } = workout;
   const [playlist, setPlaylist] = useState('');
+  const classes = useStyles();
 
   // function that loops over exercise videos and parses video ids into a playlist url string
   const getPlaylistIds = () => {
@@ -40,8 +53,7 @@ const YoutubePlayer = ({ workout }) => {
         title="ytplayer"
         id="ytplayer"
         type="text/html"
-        width="640"
-        height="360"
+        className={classes.media}
         src={playlist}
         frameBorder="0"
       />

@@ -61,7 +61,7 @@ const WorkoutViewer = ({ location }) => {
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={12} md={6}>
           <Typography color="primary" variant="h4">
             {workoutToView.name}
           </Typography>
@@ -72,10 +72,10 @@ const WorkoutViewer = ({ location }) => {
               ))}
           </div>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={12} md={6}>
           <Card className={classes.root}>
             <CardActionArea>
-              <VideoPlayer workout={workoutToView} />
+              <VideoPlayer className={classes.media} workout={workoutToView} />
             </CardActionArea>
             <CardActions className={classes.content}>
               <Button onClick={() => {
