@@ -62,7 +62,15 @@ const WorkoutViewer = ({ location }) => {
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={12} md={6}>
-          <Typography color="primary" variant="h4">
+          <Typography
+            color="primary"
+            variant="h4"
+            style={{
+              fontFamily: 'Raleway, sans-serif',
+              color: '#D0DFEB',
+              textTransform: 'capitalize',
+            }}
+          >
             {workoutToView.name}
           </Typography>
           <div>

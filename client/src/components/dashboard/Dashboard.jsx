@@ -97,7 +97,7 @@ const Dashboard = () => {
   const [showFavorites, setShowFavorites] = useState(false);
   const [favorites, setFavorites] = useState([]);
   const { setWorkoutToView } = useContext(WorkoutContext);
-  const { getAUsersWorkouts, getRandomWorkout } = useContext(APIContext);
+  const { getAUsersWorkouts, getRandomWorkout, deleteUserWorkout } = useContext(APIContext);
   const styles = useStyles();
 
   const viewWorkout = (workout) => {
@@ -135,6 +135,15 @@ const Dashboard = () => {
 
   const toggleFavorites = () => {
     setShowFavorites(!showFavorites);
+  };
+
+  const deleteWorkout = async (workout) => {
+    try {
+      const res = await deleteUserWorkout(workout);
+      console.log(res);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -195,6 +204,15 @@ const Dashboard = () => {
             <div key={idx} className={styles.workout}>
               <Typography color="primary" className={styles.typography}>
                 {workout && workout.name}
+                {' '}
+                <i
+                  onClick={() => deleteWorkout(workout)}
+                  className="far fa-trash-alt"
+                  style={{
+                    marginLeft: '10px',
+                    cursor: 'pointer',
+                  }}
+                />
               </Typography>
 
               <Button onClick={() => viewWorkout(workout)} color="secondary">View</Button>
