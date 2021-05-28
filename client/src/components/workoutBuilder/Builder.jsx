@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import styles from './builder.module.scss';
 import Exercise from './Exercise';
@@ -11,6 +11,7 @@ const Builder = () => {
     newWorkout, setNewWorkout, allExercises, setAllExercises, setWorkoutToView,
   } = useContext(WorkoutContext);
   const { getAllExercies, addWorkout } = useContext(APIContext);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(async () => {
     try {
@@ -22,6 +23,10 @@ const Builder = () => {
       console.error(err);
     }
   }, []);
+
+  useEffect(() => {
+    setErrorMessage('');
+  }, [newWorkout]);
 
   const changeHandler = (e) => {
     setNewWorkout({
@@ -40,12 +45,16 @@ const Builder = () => {
   };
 
   const createWorkout = async () => {
-    try {
-      const res = await addWorkout();
-      setWorkoutToView(res);
-      history.push('/viewer');
-    } catch (err) {
-      console.error(err);
+    if (newWorkout.name && newWorkout.exercises.length > 0) {
+      try {
+        const res = await addWorkout();
+        setWorkoutToView(res);
+        history.push('/viewer');
+      } catch (err) {
+        console.error(err);
+      }
+    } else {
+      setErrorMessage('Workout must contain a name and at least one exercise');
     }
   };
 
@@ -80,10 +89,12 @@ const Builder = () => {
             ))}
         </div>
       </div>
-      <button className={styles.beginButton} onClick={createWorkout}>
-        Begin Workout
-      </button>
-
+      <div className={styles.buttonContainer}>
+        <p className={styles.error}>{errorMessage}</p>
+        <button className={styles.beginButton} onClick={createWorkout}>
+          Begin Workout
+        </button>
+      </div>
     </div>
   );
 };
