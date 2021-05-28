@@ -47,5 +47,6 @@ module.exports = {
     'no-await-in-loop': 'off',
     radix: 'off',
     'no-unused-vars': 'off',
+    'no-underscore-dangle': 'off',
   },
 };

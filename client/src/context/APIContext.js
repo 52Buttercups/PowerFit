@@ -89,6 +89,19 @@ const APIProvider = ({ children }) => {
     }
   };
 
+  const deleteUserWorkout = async (workout) => {
+    try {
+      const res = await axios.delete('/userWorkouts', {
+        data: {
+          username: localStorage.getItem('user'),
+          workoutId: workout._id,
+        },
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   /** ****************************************************************************
   *                      API calls for workouts
   ***************************************************************************** */
@@ -122,6 +135,7 @@ const APIProvider = ({ children }) => {
         getRandomWorkout,
         saveToFavorites,
         addUserWorkout,
+        deleteUserWorkout,
       }}
     >
       {children}

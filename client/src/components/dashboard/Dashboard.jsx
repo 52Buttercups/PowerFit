@@ -97,7 +97,7 @@ const Dashboard = () => {
   const [showFavorites, setShowFavorites] = useState(false);
   const [favorites, setFavorites] = useState([]);
   const { setWorkoutToView } = useContext(WorkoutContext);
-  const { getAUsersWorkouts, getRandomWorkout } = useContext(APIContext);
+  const { getAUsersWorkouts, getRandomWorkout, deleteUserWorkout } = useContext(APIContext);
   const styles = useStyles();
 
   const viewWorkout = (workout) => {
@@ -137,24 +137,59 @@ const Dashboard = () => {
     setShowFavorites(!showFavorites);
   };
 
+  const deleteWorkout = async (workout) => {
+    try {
+      const res = await deleteUserWorkout(workout);
+      const data = await getAUsersWorkouts();
+      if (data.length > 0 && data[0].workouts.length > 0) {
+        setWorkouts(data[0].workouts);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div className={styles.root}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Typography color="primary" variant="h3">
+          <Typography
+            color="primary"
+            variant="h3"
+            style={{
+              fontFamily: 'Raleway, sans-serif',
+              color: '#D0DFEB',
+            }}
+          >
             Dashboard
           </Typography>
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <Typography color="primary" variant="h4">
+          <Typography
+            color="primary"
+            variant="h4"
+            style={{
+              fontFamily: 'Raleway, sans-serif',
+              color: '#D0DFEB',
+            }}
+          >
             My workouts
           </Typography>
           <FormControlLabel
+            style={{
+              fontFamily: 'Raleway, sans-serif',
+              color: '#D0DFEB',
+            }}
             color="primary"
-            control={
-              <Switch checked={showFavorites} onChange={toggleFavorites} name="showFavorites" color="secondary" />
-            }
+            control={(
+              <Switch
+                checked={showFavorites}
+                onChange={toggleFavorites}
+                name="showFavorites"
+                color="secondary"
+              />
+            )}
             label="Show Only Favorites"
           />
           {showFavorites && favorites.length > 0 && favorites.map((workout, idx) => (
@@ -172,6 +207,15 @@ const Dashboard = () => {
             <div key={idx} className={styles.workout}>
               <Typography color="primary" className={styles.typography}>
                 {workout && workout.name}
+                {' '}
+                <i
+                  onClick={() => deleteWorkout(workout)}
+                  className="far fa-trash-alt"
+                  style={{
+                    marginLeft: '10px',
+                    cursor: 'pointer',
+                  }}
+                />
               </Typography>
 
               <Button onClick={() => viewWorkout(workout)} color="secondary">View</Button>
@@ -182,7 +226,14 @@ const Dashboard = () => {
         </Grid>
 
         <Grid item xs={12} sm={6} className={styles.buiderContainer}>
-          <Typography color="primary" variant="h4">
+          <Typography
+            color="primary"
+            variant="h4"
+            style={{
+              fontFamily: 'Raleway, sans-serif',
+              color: '#D0DFEB',
+            }}
+          >
             Workout Builder
           </Typography>
           <div className={styles.card}>
