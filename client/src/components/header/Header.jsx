@@ -1,11 +1,28 @@
 import React, { useContext } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import styles from './header.module.scss';
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import MenuIcon from '@material-ui/icons/Menu';
+import IconButton from '@material-ui/core/IconButton';
+
 import { UsersContext } from '../../context/UsersContext';
+import styles from './header.module.scss';
 
 export const Header = () => {
   const history = useHistory();
   const location = useLocation();
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <div className={styles.headerContainer}>
       <div className={styles.logo}>
@@ -14,32 +31,41 @@ export const Header = () => {
         <i className="fas fa-dumbbell" />
       </div>
 
-      <div className={styles.linksContainer}>
-        {(location.pathname === '/builder'
+      <div>
+        <div className={styles.menu}>
+          <IconButton style={{ marginLeft: 'auto' }} aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+            <MenuIcon />
+          </IconButton>
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            {(location.pathname === '/builder'
        || location.pathname === '/viewer') && (
-       <button
-         onClick={() => {
-           history.push('/dashboard');
-         }}
-         className={styles.textButton}
+       <MenuItem onClick={() => {
+         handleClose();
+         history.push('/dashboard');
+       }}
        >
          Dashboard
-       </button>
-        )}
-        {localStorage.getItem('user') && (
-        <button
-          onClick={() => {
-            localStorage.clear();
-            history.push('/');
-          }}
-          className={styles.textButton}
-        >
-          Logout
-        </button>
-        )}
-
+       </MenuItem>
+            )}
+            {localStorage.getItem('user') && (
+            <MenuItem onClick={() => {
+              handleClose();
+              localStorage.clear();
+              history.push('/');
+            }}
+            >
+              Logout
+            </MenuItem>
+            )}
+          </Menu>
+        </div>
       </div>
-
     </div>
   );
 };
