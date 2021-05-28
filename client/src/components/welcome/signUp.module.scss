@@ -46,6 +46,10 @@
   color: $background-color;
   margin: 30px 0 15px;
   cursor: pointer;
+  &:active {
+    background-color: $background-color;
+    color: $primary-color;
+  }
 }
 
 .formSwitch {
