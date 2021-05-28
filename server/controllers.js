@@ -44,7 +44,7 @@ const createExercise = (req, res) => {
       res.status(201).json({ message: `Exercise: "${req.body.name}" has been created.` });
     })
     .catch((error) => {
-      console.log(error);
+      console.error(error);
       res.status(401).json({ message: `Exercise: "${req.body.name}" has failed to be created.` });
     });
 };
@@ -126,7 +126,6 @@ const createUserWorkout = (req, res) => {
   const { workouts } = req.body;
   models.UserWorkouts.findOneAndUpdate({ username }, { $push: { workouts } })
     .then((results) => {
-      console.log(results);
       res.status(200).json(results);
     })
     .catch((err) => {

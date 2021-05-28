@@ -64,7 +64,6 @@ app.get('/api/authenticated', connectEnsureLogin.ensureLoggedIn(), (req, res) =>
 
 app.get('/', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
   try {
-    console.log(req.session);
     res.status(200).json({ message: 'Hello from Buttercups Server' });
   } catch (err) {
     console.error(err);

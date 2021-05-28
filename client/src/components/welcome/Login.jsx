@@ -6,7 +6,9 @@ import { UsersContext } from '../../context/UsersContext';
 
 const Login = ({ setShowSignup }) => {
   const history = useHistory();
-  const { loggedInUser, setLoggedInUser } = useContext(UsersContext);
+  const {
+    errors, setErrors, formSubmitError, setFormSubmitError,
+  } = useContext(UsersContext);
   const { loginUser } = useContext(APIContext);
   const [formData, setFormData] = useState({
     username: '',
@@ -14,6 +16,11 @@ const Login = ({ setShowSignup }) => {
   });
 
   const changeHandler = (e) => {
+    setErrors({
+      username: '',
+      password: '',
+    });
+    setFormSubmitError('');
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -21,24 +28,50 @@ const Login = ({ setShowSignup }) => {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await loginUser(formData);
-      if (res) {
-        setLoggedInUser(res);
-        localStorage.setItem('user', res);
-        setTimeout(() => {
-          history.push('/dashboard');
-        }, 500);
-      }
-    } catch (err) {
-      console.error(err);
-    }
-    setFormData({
+  const validateForm = (data) => {
+    const errs = {
       username: '',
       password: '',
+    };
+    if (!data.username) {
+      errs.username = 'Must include a username';
+    }
+    if (!data.password) {
+      errs.password = 'Must include a password';
+    }
+    setErrors({
+      username: errs.username,
+      password: errs.password,
     });
+    if (!errs.username && !errs.password) {
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    e.preventDefault();
+    const errs = validateForm(formData);
+    if (!errs) {
+      try {
+        const res = await loginUser(formData);
+        if (res) {
+          localStorage.setItem('user', res);
+          setTimeout(() => {
+            history.push('/dashboard');
+          }, 500);
+        } else {
+          setFormSubmitError('Invalid credentials');
+        }
+      } catch (err) {
+        console.error(err);
+      }
+      setFormData({
+        username: '',
+        password: '',
+      });
+    }
   };
 
   return (
@@ -46,6 +79,7 @@ const Login = ({ setShowSignup }) => {
       className={styles.form}
       onSubmit={handleSubmit}
     >
+      <p className={styles.submitError}>{formSubmitError}</p>
       <label className={styles.inputLabel} htmlFor="username">
         Username
       </label>
@@ -59,7 +93,7 @@ const Login = ({ setShowSignup }) => {
         onChange={changeHandler}
       />
       <div className={styles.formError}>
-        {/* <p>error</p> */}
+        {errors.username && <p>{errors.username}</p>}
       </div>
       <label className={styles.inputLabel} htmlFor="password">
         Password
@@ -75,7 +109,7 @@ const Login = ({ setShowSignup }) => {
         onChange={changeHandler}
       />
       <div className={styles.formError}>
-        {/* <p>error</p> */}
+        {errors.password && <p>{errors.password}</p>}
       </div>
       <button type="submit">Login</button>
       <p className={styles.formSwitch}>

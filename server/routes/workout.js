@@ -8,8 +8,6 @@ router.get('/', async (req, res) => {
   // This route should send back users workouts
   try {
     const workouts = await Workout.find({});
-
-    console.log('workouts', workouts);
     const workoutsWithExercises = [];
     const results = ['1'];
     let response = await Promise.all(workouts.forEach(async (workout) => {
@@ -17,28 +15,10 @@ router.get('/', async (req, res) => {
         let exercise = await Promise.all(async Exercise.findOne({ exerciseId }));
       });
     }));
-    // loop over workouts
-    // Promise.all(workouts.forEach(async (workout) => {
-    //   // here is a workout with exercise ids
-    //   const exercises = await Promise.all(workout.exercises.map(async (exerciseId) => {
-    //     // const exercise = await Exercise.findOne({ exerciseId });
-    //     return exercise;
-    //   }));
-    //   console.log('should be a workout', workout);
-    //   delete workout.exercises;
-
-    //   workout[exercises] = exercises;
-    //   console.log('should be workout with  exercises', workout);
-    //   workoutsWithExercises.push(workout);
-    // }))
-    //   .then((result) => console.log({result}))
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
 
     res.status(200).json(workoutsWithExercises);
   } catch (err) {
-    console.log('err', err);
+    console.error(err);
   }
 });
 
@@ -56,7 +36,7 @@ router.get('/:id', async (req, res) => {
     workout.exercises = exercises;
     res.status(200).json(workout);
   } catch (err) {
-    console.log('err', err);
+    console.error(err);
   }
 });
 
