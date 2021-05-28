@@ -73,7 +73,6 @@ const Login = ({ setShowSignup }) => {
       });
     }
   };
-  console.log(formSubmitError);
 
   return (
     <form

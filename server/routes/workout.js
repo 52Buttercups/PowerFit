@@ -8,8 +8,6 @@ router.get('/', async (req, res) => {
   // This route should send back users workouts
   try {
     const workouts = await Workout.find({});
-
-    console.log('workouts', workouts);
     const workoutsWithExercises = [];
     const results = ['1'];
     let response = await Promise.all(workouts.forEach(async (workout) => {
@@ -38,7 +36,7 @@ router.get('/', async (req, res) => {
 
     res.status(200).json(workoutsWithExercises);
   } catch (err) {
-    console.log('err', err);
+    console.error(err);
   }
 });
 
@@ -56,7 +54,7 @@ router.get('/:id', async (req, res) => {
     workout.exercises = exercises;
     res.status(200).json(workout);
   } catch (err) {
-    console.log('err', err);
+    console.error(err);
   }
 });
 

@@ -287,7 +287,7 @@ const insertDummyData = async () => {
     await Workouts.create(workoutData);
     await Exercises.create(exerciseData);
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 

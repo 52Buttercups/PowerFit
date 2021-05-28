@@ -11,7 +11,7 @@ router.post('/', (req, res) => {
   // Uses passport-local-mongoose's register function to automatically add a salt and hash
   Users.register(new Users({ username: req.body.username }), req.body.password, (err) => {
     if (err) {
-      console.log(err);
+      console.error(err);
       return res.status(400).json({ message: `${req.body.username} has failed to be created.`, error: `${err}` });
     }
 

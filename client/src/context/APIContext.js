@@ -65,10 +65,8 @@ const APIProvider = ({ children }) => {
       username: localStorage.getItem('user'),
       workouts: workoutToView,
     };
-    console.log(userWorkout);
     try {
       const res = await axios.post('/userWorkouts', userWorkout);
-      console.log(res);
       return res.data;
     } catch (err) {
       console.error(err);
