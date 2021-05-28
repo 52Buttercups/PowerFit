@@ -24,6 +24,8 @@
   align-items: center;
   height: 75vh;
   padding: 2em 1em;
+  overflow: scroll;
+
 
   @media (max-width: 700px) {
     padding: 0;
