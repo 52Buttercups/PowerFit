@@ -43,12 +43,15 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-Here's a blank template to get started:
-**To avoid retyping too much info. Do a search and replace with your text editor for the following:**
-`github_username`, `repo_name`, `twitter_handle`, `email`, `project_title`, `project_description`
-
+Built with lots of **love** by the following individuals:
+* [Jess Bonano](https://github.com/JessBonanno)
+* [Leslie Rodriguez](https://github.com/thereactgirl)
+* [Tom Shibley](https://github.com/Tom-Shibley)
+* [Prince Boateng](https://github.com/nanaboat)
+* [Alex Garay](https://github.com/Alex-Garay)
+* [Jason Yeh](https://github.com/JasonYeh7)
+* [Hunter Hancock](https://github.com/hunterjhancock)
+* [Jonnathan Sullins](https://github.com/jyxsul)
 
 ### Built With
 
