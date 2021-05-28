@@ -148,9 +148,9 @@ const addFavoriteWorkout = (req, res) => {
 
 const deleteUserWorkout = (req, res) => {
   const { username, workoutId } = req.body;
-  console.log(username)
-  console.log(workoutId)
-  models.UserWorkouts.update({ username }, { $pull: { workouts: { _id: workoutId }}})
+  models.UserWorkouts.update(
+    { username }, { $pull: { workouts: { _id: workoutId } } },
+  )
     .then((results) => {
       res.status(200).json(results);
     })
