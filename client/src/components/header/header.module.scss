@@ -4,11 +4,15 @@
   width: 100%;
   background-color: $off-white;
   display: flex;
-
   flex-direction: row;
   justify-content: space-between;
   padding: 1em;
   color: $black;
+
+  @media (max-width: 700px) {
+    padding: 0;
+  }
+
 }
 
 .linksContainer {
