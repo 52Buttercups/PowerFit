@@ -141,20 +141,43 @@ const Dashboard = () => {
     <div className={styles.root}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Typography color="primary" variant="h3">
+          <Typography
+            color="primary"
+            variant="h3"
+            style={{
+              fontFamily: 'Raleway, sans-serif',
+              color: '#D0DFEB',
+            }}
+          >
             Dashboard
           </Typography>
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <Typography color="primary" variant="h4">
+          <Typography
+            color="primary"
+            variant="h4"
+            style={{
+              fontFamily: 'Raleway, sans-serif',
+              color: '#D0DFEB',
+            }}
+          >
             My workouts
           </Typography>
           <FormControlLabel
+            style={{
+              fontFamily: 'Raleway, sans-serif',
+              color: '#D0DFEB',
+            }}
             color="primary"
-            control={
-              <Switch checked={showFavorites} onChange={toggleFavorites} name="showFavorites" color="secondary" />
-            }
+            control={(
+              <Switch
+                checked={showFavorites}
+                onChange={toggleFavorites}
+                name="showFavorites"
+                color="secondary"
+              />
+            )}
             label="Show Only Favorites"
           />
           {showFavorites && favorites.length > 0 && favorites.map((workout, idx) => (
@@ -182,7 +205,14 @@ const Dashboard = () => {
         </Grid>
 
         <Grid item xs={12} sm={6} className={styles.buiderContainer}>
-          <Typography color="primary" variant="h4">
+          <Typography
+            color="primary"
+            variant="h4"
+            style={{
+              fontFamily: 'Raleway, sans-serif',
+              color: '#D0DFEB',
+            }}
+          >
             Workout Builder
           </Typography>
           <div className={styles.card}>
