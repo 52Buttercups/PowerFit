@@ -140,7 +140,10 @@ const Dashboard = () => {
   const deleteWorkout = async (workout) => {
     try {
       const res = await deleteUserWorkout(workout);
-      console.log(res);
+      const data = await getAUsersWorkouts();
+      if (data.length > 0 && data[0].workouts.length > 0) {
+        setWorkouts(data[0].workouts);
+      }
     } catch (err) {
       console.error(err);
     }
