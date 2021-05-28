@@ -111,14 +111,14 @@ const Dashboard = () => {
     try {
       const data = await getAUsersWorkouts();
 
-      if (data.length > 0 && data[0].workouts) {
+      if (data.length > 0 && data[0].workouts.length > 0) {
         setWorkouts(data[0].workouts);
       } else {
         const randomWorkout = await getRandomWorkout();
         setWorkouts([randomWorkout]);
       }
     } catch (err) {
-      console.error(err);
+      console.error(err.message || err);
     }
   }, []);
 

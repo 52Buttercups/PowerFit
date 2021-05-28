@@ -24,12 +24,10 @@ const YoutubePlayer = ({ workout }) => {
 
     const playlistString = videoIds.join(',');
 
-    const baseUrl = `https://www.youtube.com/embed/?autoplay=1&playlist=${playlistString}`;
-    return baseUrl;
+    return `https://www.youtube.com/embed/?autoplay=1&playlist=${playlistString}`;
   };
 
   useEffect(() => {
-    const playlistIds = getPlaylistIds();
     setPlaylist(getPlaylistIds());
   }, []);
 
