@@ -6,7 +6,6 @@ import { WorkoutContext } from './WorkoutContext';
 export const APIContext = createContext({});
 
 const APIProvider = ({ children }) => {
-  const { loggedInUser } = useContext(UsersContext);
   const { newWorkout, workoutToView } = useContext(WorkoutContext);
 
   /** ****************************************************************************

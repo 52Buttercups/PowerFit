@@ -6,7 +6,6 @@ import { UsersContext } from '../../context/UsersContext';
 export const Header = () => {
   const history = useHistory();
   const location = useLocation();
-  const { setLoggedInUser, loggedInUser } = useContext(UsersContext);
   return (
     <div className={styles.headerContainer}>
       <div className={styles.logo}>

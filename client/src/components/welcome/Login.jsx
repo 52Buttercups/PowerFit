@@ -7,7 +7,7 @@ import { UsersContext } from '../../context/UsersContext';
 const Login = ({ setShowSignup }) => {
   const history = useHistory();
   const {
-    loggedInUser, setLoggedInUser, errors, setErrors, canSubmit, setCanSubmit,
+    errors, setErrors, formSubmitError, setFormSubmitError,
   } = useContext(UsersContext);
   const { loginUser } = useContext(APIContext);
   const [formData, setFormData] = useState({
@@ -16,6 +16,11 @@ const Login = ({ setShowSignup }) => {
   });
 
   const changeHandler = (e) => {
+    setErrors({
+      username: '',
+      password: '',
+    });
+    setFormSubmitError('');
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -52,11 +57,13 @@ const Login = ({ setShowSignup }) => {
       try {
         const res = await loginUser(formData);
         if (res) {
-          setLoggedInUser(res);
           localStorage.setItem('user', res);
           setTimeout(() => {
             history.push('/dashboard');
           }, 500);
+        } else {
+          console.log('error');
+          setFormSubmitError('Invalid credentials');
         }
       } catch (err) {
         console.error(err);
@@ -67,12 +74,14 @@ const Login = ({ setShowSignup }) => {
       });
     }
   };
+  console.log(formSubmitError);
 
   return (
     <form
       className={styles.form}
       onSubmit={handleSubmit}
     >
+      <p className={styles.submitError}>{formSubmitError}</p>
       <label className={styles.inputLabel} htmlFor="username">
         Username
       </label>

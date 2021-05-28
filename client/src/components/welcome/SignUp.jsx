@@ -7,7 +7,7 @@ import { UsersContext } from '../../context/UsersContext';
 const SignUp = ({ setShowSignup }) => {
   const history = useHistory();
   const {
-    loggedInUser, setLoggedInUser, errors, setErrors, canSubmit, setCanSubmit,
+    errors, setErrors, formSubmitError, setFormSubmitError,
   } = useContext(UsersContext);
   const { registerUser } = useContext(APIContext);
   const [formData, setFormData] = useState({
@@ -16,6 +16,10 @@ const SignUp = ({ setShowSignup }) => {
   });
 
   const changeHandler = (e) => {
+    setErrors({
+      username: '',
+      password: '',
+    });
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -51,7 +55,6 @@ const SignUp = ({ setShowSignup }) => {
       try {
         const res = await registerUser(formData);
         if (res) {
-          setLoggedInUser(res);
           setTimeout(() => {
             history.push('/dashboard');
           }, 500);

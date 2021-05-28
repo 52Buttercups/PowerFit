@@ -3,17 +3,16 @@ import React, { createContext, useState } from 'react';
 export const UsersContext = createContext({});
 
 const UsersProvider = ({ children }) => {
-  const [loggedInUser, setLoggedInUser] = useState(null);
-  const [canSubmit, setCanSubmit] = useState(false);
   const [errors, setErrors] = useState({ username: '', password: '' });
+  const [formSubmitError, setFormSubmitError] = useState('');
 
   return (
     <UsersContext.Provider
       value={{
-        loggedInUser,
-        setLoggedInUser,
         errors,
         setErrors,
+        formSubmitError,
+        setFormSubmitError,
       }}
     >
       {children}
