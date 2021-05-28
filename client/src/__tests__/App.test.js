@@ -1,19 +1,16 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { shallow } from '../../enzyme.setup';
 import App from '../App';
 
 describe('App Component', () => {
-  it('Renders App component correctly', () => {
-    const appComponent = render(<App />);
-    expect(appComponent.exists()).toBe(true);
+  let wrapper;
+  beforeEach(() => {
+    wrapper = shallow(
+      <App />,
+    );
+  });
+
+  it('Renders non-empty component without crashing', () => {
+    expect(wrapper.exists()).toBe(true);
   });
 });
-
-// import { render, screen } from '@testing-library/react';
-// import App from './App';
-
-// test('renders learn react link', () => {
-//   render(<App />);
-//   const linkElement = screen.getByText(/learn react/i);
-//   expect(linkElement).toBeInTheDocument();
-// });
