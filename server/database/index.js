@@ -15,7 +15,7 @@ db
   .then(() => console.log(`Connected to: ${mongoUri}`))
   .catch((err) => {
     console.log(`There was a problem connecting to mongo at: ${mongoUri}`);
-    console.log(err);
+    console.error(err);
   });
 
 schema.users.plugin(passportLocalMongoose);

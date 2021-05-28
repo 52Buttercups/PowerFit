@@ -9,12 +9,11 @@ router.post('/', (req, res, next) => {
     (err, user, info) => {
       // If there's an error responds with appropriate error.
       if (err) {
-        console.log(err);
+        console.error(err);
         return res.status(400).json({ message: 'Unable to login user!', error: `${err}` });
       }
       // If unable to login user due to wrong username or password, responds with appropriate error.
       if (!user) {
-        console.log(info);
         return res.status(400).json({ message: 'Unable to login user!', loggedIn: false, error: `${info}` });
       }
       // Logs the user in and responds with session cookie
