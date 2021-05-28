@@ -12,16 +12,6 @@
     font-size: 2rem;
   }
 
-  button {
-    width: 160px;
-    background-color: $background-color;
-    border: .5px solid $primary-color;
-    color: $secondary-color;
-    padding: 0.7em;
-    border-radius: 7px;
-    margin-left: auto;
-    font-family: $open-sans;
-  }
 }
 
 .exerciseWorkoutContainer {
@@ -101,7 +91,31 @@
   }
 }
 
-.beginButton {
-  margin-left: auto;
-  font-size: 1rem;
+.buttonContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .error {
+    color: red;
+    font-size: 1rem;
+  }
+  .beginButton {
+    width: 160px;
+    background-color: $background-color;
+    border: .5px solid $primary-color;
+    color: $secondary-color;
+    padding: 0.5em;
+    border-radius: 7px;
+    font-family: $open-sans;
+    font-size: 1rem;
+    cursor: pointer;
+    &:active {
+      border-color: $secondary-color;
+      color: $primary-color;
+    }
+  }
 }
+
+
+
