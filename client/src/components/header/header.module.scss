@@ -4,9 +4,15 @@
   width: 100%;
   background-color: $off-white;
   display: flex;
-  flex-direction: space-between;
+  flex-direction: row;
+  justify-content: space-between;
   padding: 1em;
   color: $black;
+
+  @media (max-width: 700px) {
+    padding: 0;
+  }
+
 }
 
 .linksContainer {
@@ -46,4 +52,8 @@
   font-family: $open-sans;
   text-decoration: underline;
   cursor: pointer;
+}
+
+.menu {
+  margin-left: auto;
 }
