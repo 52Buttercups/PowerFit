@@ -7,7 +7,7 @@ export const APIContext = createContext({});
 
 const APIProvider = ({ children }) => {
   const { loggedInUser } = useContext(UsersContext);
-  const { newWorkout } = useContext(WorkoutContext);
+  const { newWorkout, workoutToView } = useContext(WorkoutContext);
 
   /** ****************************************************************************
   *                      API calls for user auth
@@ -55,6 +55,21 @@ const APIProvider = ({ children }) => {
   const getAUsersWorkouts = async () => {
     try {
       const res = await axios.get(`/userWorkouts/${localStorage.getItem('user')}`);
+      return res.data;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const addUserWorkout = async (id) => {
+    const userWorkout = {
+      username: localStorage.getItem('user'),
+      workouts: workoutToView,
+    };
+    console.log(userWorkout);
+    try {
+      const res = await axios.post('/userWorkouts', userWorkout);
+      console.log(res);
       return res.data;
     } catch (err) {
       console.error(err);
@@ -109,6 +124,7 @@ const APIProvider = ({ children }) => {
         addWorkout,
         getRandomWorkout,
         saveToFavorites,
+        addUserWorkout,
       }}
     >
       {children}
