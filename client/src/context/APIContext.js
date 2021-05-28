@@ -94,6 +94,7 @@ const APIProvider = ({ children }) => {
       const res = await axios.delete('/userWorkouts', {
         data: {
           username: localStorage.getItem('user'),
+          // eslint-disable-next-line no-underscore-dangle
           workoutId: workout._id,
         },
       });
