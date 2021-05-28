@@ -42,6 +42,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+[![product-screenshot]](http://54.219.120.53)
 
 Built with lots of **love** by the following individuals:
 * [Jess Bonano](https://github.com/JessBonanno)
@@ -104,3 +105,5 @@ This is an example of how to list things you need to use the software and how to
 * [NodeJs](https://nodejs.org/en/)
 * [NpmJs](https://www.npmjs.com/)
 * [Postman](https://www.postman.com/)
+
+[product-screenshot]: client/src/homepage.png
