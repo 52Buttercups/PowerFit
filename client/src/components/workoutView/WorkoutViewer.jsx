@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 // material ui
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const WorkoutViewer = ({ location }) => {
+const WorkoutViewer = () => {
   const history = useHistory();
   const classes = useStyles();
   const { workoutToView, setNewWorkout } = useContext(WorkoutContext);
@@ -49,17 +49,22 @@ const WorkoutViewer = ({ location }) => {
     saveToFavorites(_id);
   };
 
-  const saveUserWorkout = async () => {
+  const saveUserWorkout = () => {
     const { _id } = workoutToView;
-    try {
-      const res = await addUserWorkout(_id);
-    } catch (err) {
-      console.error(err);
-    }
+    addUserWorkout(_id);
   };
 
+  useEffect(() => {
+    if (workoutToView.exercises === undefined) {
+      history.push('/dashboard');
+    }
+  }, []);
+
   return (
+
     <div className={classes.root}>
+      {workoutToView.exercises !== undefined
+      && (
       <Grid container spacing={3}>
         <Grid item xs={12} sm={12} md={6}>
           <Typography color="primary" variant="h4">
@@ -100,6 +105,7 @@ const WorkoutViewer = ({ location }) => {
           </Card>
         </Grid>
       </Grid>
+      )}
     </div>
   );
 };
