@@ -42,11 +42,20 @@ const WorkoutViewer = ({ location }) => {
   const history = useHistory();
   const classes = useStyles();
   const { workoutToView, setNewWorkout } = useContext(WorkoutContext);
-  const { saveToFavorites } = useContext(APIContext);
-  console.log(workoutToView);
+  const { addUserWorkout, saveToFavorites } = useContext(APIContext);
+
   const handleClick = () => {
     const { _id } = workoutToView;
     saveToFavorites(_id);
+  };
+
+  const saveUserWorkout = async () => {
+    const { _id } = workoutToView;
+    try {
+      const res = await addUserWorkout(_id);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -78,9 +87,14 @@ const WorkoutViewer = ({ location }) => {
               </Button>
               {/* <Button>Mark as complete</Button> */}
               <Button
+                onClick={saveUserWorkout}
+              >
+                Save To My Workouts
+              </Button>
+              <Button
                 onClick={handleClick}
               >
-                Save To My Favorites
+                Mark as Favorites
               </Button>
             </CardActions>
           </Card>
