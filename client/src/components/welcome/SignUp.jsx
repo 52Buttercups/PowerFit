@@ -20,6 +20,7 @@ const SignUp = ({ setShowSignup }) => {
       username: '',
       password: '',
     });
+    setFormSubmitError('');
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -58,6 +59,8 @@ const SignUp = ({ setShowSignup }) => {
           setTimeout(() => {
             history.push('/dashboard');
           }, 500);
+        } else {
+          setFormSubmitError('Username already registered');
         }
       } catch (err) {
         console.error(err);
@@ -71,10 +74,10 @@ const SignUp = ({ setShowSignup }) => {
 
   return (
     <form
-      disabled={!errors.password && !errors.username}
       className={styles.form}
       onSubmit={handleSubmit}
     >
+      <p className={styles.submitError}>{formSubmitError}</p>
       <label className={styles.inputLabel} htmlFor="username">
         Username
       </label>

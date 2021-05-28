@@ -8,6 +8,12 @@
   align-items: center;
 }
 
+.submitError {
+  color: red;
+  font-size: 1.2em;
+  height: 25px;
+}
+
 .inputLabel {
   color: $black;
   width: 85%;

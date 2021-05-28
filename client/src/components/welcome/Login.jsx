@@ -62,7 +62,6 @@ const Login = ({ setShowSignup }) => {
             history.push('/dashboard');
           }, 500);
         } else {
-          console.log('error');
           setFormSubmitError('Invalid credentials');
         }
       } catch (err) {
