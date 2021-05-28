@@ -56,6 +56,7 @@ const SignUp = ({ setShowSignup }) => {
       try {
         const res = await registerUser(formData);
         if (res) {
+          localStorage.setItem('user', res);
           setTimeout(() => {
             history.push('/dashboard');
           }, 500);
